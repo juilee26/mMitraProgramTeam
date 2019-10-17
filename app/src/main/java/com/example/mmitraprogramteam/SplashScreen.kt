@@ -37,7 +37,7 @@ class SplashScreen : AwesomeSplash() {
         configSplash?.animLogoSplashDuration=500
         configSplash?.animLogoSplashTechnique=Techniques.FadeIn
         configSplash?.titleSplash= "mMitra"
-        configSplash?.titleTextColor=R.color.colorPrimary
+        configSplash?.titleTextColor=R.color.splash_screen_label
         configSplash?.titleTextSize =50f
         configSplash?.animTitleDuration=500
         configSplash?.animTitleTechnique = Techniques.FadeIn
