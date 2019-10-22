@@ -51,5 +51,4 @@ dependencies {
     implementation 'com.takisoft.fix:preference-v7:25.3.0.0'
     implementation 'net.danlew:android.joda:2.9.4'
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.15'
-    implementation 'com.github.ViksaaSkool:AwesomeSplash:v1.0.0'
 }
