@@ -10,9 +10,10 @@
     <color name="white">#FFFFFF</color>
     <color name="splash_screen">#9C8F9EA0</color>
     <color name="splash_screen_label">#921339</color>
-    <color name="gray">#B3ACAC</color>
+    <color name="gray">#474646</color>
     <color name="login_button_bg">#CD0E5258</color>
 <!--    #CD580E25-->
     <color name="login_button_text">#720A74CE</color>
     <color name="cursor_color">#E79FA5</color>
+    <color name="homescreen_transperant">#00474646</color>
 </resources>
