@@ -1,12 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimary">#58CCBA</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
-    <color name="start_color">#03154B</color>
+    <color name="start_color">#1D9494</color>
     <color name="middle_color">#173363</color>
-    <color name="end_color">#293949</color>
-    <color name="transperant_color">#92293949</color>
+    <color name="end_color">#6A47A5</color>
+    <color name="transperant_color">#7C39556D</color>
     <color name="white">#FFFFFF</color>
-<color name="splash_screen">#051033</color>
+    <color name="splash_screen">#9C8F9EA0</color>
+    <color name="splash_screen_label">#921339</color>
+    <color name="gray">#474646</color>
+    <color name="login_button_bg">#CD0E5258</color>
+<!--    #CD580E25-->
+    <color name="login_button_text">#720A74CE</color>
+    <color name="cursor_color">#E79FA5</color>
+    <color name="homescreen_transperant">#00474646</color>
 </resources>
