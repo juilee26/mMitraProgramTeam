@@ -1,13 +1,138 @@
 package com.example.mmitraprogramteam.login
 
+import android.content.Context
+import android.content.Intent
+import android.os.Build
 import android.os.Bundle
+import android.view.KeyEvent
+import android.view.View
+import android.view.inputmethod.EditorInfo
+import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import com.example.mmitraprogramteam.R
 
-class Login : AppCompatActivity (){
+import com.example.mmitraprogramteam.R
+import com.example.mmitraprogramteam.data.database.*
+import com.example.mmitraprogramteam.home.MainActivity
+import com.google.android.material.textfield.TextInputLayout
+import kotlinx.android.synthetic.main.layout_login.*
+import kotlinx.android.synthetic.main.progress_overlay.*
+import tech.inscripts.ins_armman.mMitra.login.ILoginView
+import tech.inscripts.ins_armman.mMitra.login.LoginPresenter
+import tech.inscripts.ins_armman.mMitra.utility.Utility
+
+class Login : AppCompatActivity(), ILoginView , View.OnClickListener {
+
+    val mLoginPresenter = LoginPresenter()
+    val uti = Utility()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        var applicationLanguage = uti.getLanguagePreferance(applicationContext)
+        if(applicationLanguage?.isEmpty()!!)
+        {
+            uti.setApplicationLocale(applicationContext,"eng")
+        }
+        else
+        {
+            uti.setApplicationLocale(applicationContext,applicationLanguage)
+        }
     setContentView(R.layout.layout_login)
+        mLoginPresenter.attachView(this)
+        initializeDBHelper()
+
+        edittext_pass.setOnEditorActionListener(TextView.OnEditorActionListener { textView, actionId, keyEvent ->
+            if (actionId == EditorInfo.IME_ACTION_DONE)
+                buttonLogin.performClick()
+            false
+        })
+
+
+        buttonLogin.setOnClickListener(View.OnClickListener {
+            val username = edittext_username.text.toString()
+            val password = edittext_pass.text.toString()
+                mLoginPresenter.validateCredentials(username, password)
+        })
+
+        edittext_username.setOnClickListener(this)
+        edittext_pass.setOnClickListener(this)
+
 
     }
+
+    fun initializeDBHelper() {
+       /* Log.e("ABC", getContext().applicationContext.toString())
+        println("ABC"+ getContext().applicationContext)*/
+        val dbHelper = DBHelper(getContext())
+        DatabaseManager.initializeInstance(dbHelper)
+        DatabaseManager.getInstance().openDatabase()
+    }
+
+
+    override fun setUsernameError() {
+        textinputlayout_username.error = getString(R.string.enter_username)
+    }
+
+    override fun setPasswordError() {
+        textinputlayout_password?.error= getString(R.string.enter_password)
+    }
+
+    override fun resetErrorMsg() {
+        textinputlayout_username?.error = null
+        textinputlayout_password?.error = null
+    }
+
+    override fun showDialog(title: String, message: String) {
+        val builder: AlertDialog.Builder
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            builder = AlertDialog.Builder(getContext(), android.R.style.Theme_Material_Dialog_Alert)
+        } else {
+            builder = AlertDialog.Builder(getContext())
+        }
+        builder.setTitle(title)
+            .setMessage(message)
+            .setPositiveButton(R.string.yes) { dialog, which ->
+                // continue with delete
+            }
+            .setIcon(android.R.drawable.ic_dialog_alert)
+            .show()
+    }
+
+    override fun showProgressBar() {
+        uti.animateView(progress_overlay,View.VISIBLE,0.3f,200)
+    }
+
+    override fun hideProgressBar() {
+        uti.animateView(progress_overlay,View.GONE,0.4f,200)
+    }
+
+    override fun openHomeActivity() {
+        val myIntent = Intent(this@Login, MainActivity::class.java)
+        startActivity(myIntent)
+    }
+
+    override fun setAuthenticationFailedError() {
+        edittext_pass.setText("")
+        textinputlayout_password.setError(getString(R.string.authentication_error_msg))
+    }
+
+    override fun getContext(): Context {
+        return this
+    }
+
+    override fun onPostResume() {
+        super.onPostResume()
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && getContext() != null) {
+            if (mLoginPresenter.checkPermissions())
+                mLoginPresenter.checkIfUserAlreadyLoggedIn()
+        } else
+            mLoginPresenter.checkIfUserAlreadyLoggedIn()
+    }
+
+    override fun onClick(v: View?) {
+        edittext_username.text?.clear()
+        edittext_pass.text?.clear()
+
+    }
+
+
 }
