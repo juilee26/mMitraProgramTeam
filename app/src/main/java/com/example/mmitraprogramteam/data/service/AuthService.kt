@@ -29,9 +29,9 @@ if(userDetails!=null){
             try {
                 var loginJsonResponse: String? = null
                 if (response.body() != null) {
-                    loginJsonResponse = response.body().string()
+                    //loginJsonResponse = response.body().string()
                 } else if (response.errorBody() != null) {
-                    loginJsonResponse = response.errorBody().string()
+                    //loginJsonResponse = response.errorBody().string()
                 }
                 val loginJsonObject = JSONObject(loginJsonResponse)
                 onLoginFinished.onSuccess(loginJsonObject)

@@ -2,6 +2,8 @@ package com.example.mmitraprogramteam.login
 
 import android.content.Context
 import android.content.Intent
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.view.KeyEvent
@@ -48,9 +50,10 @@ class Login : AppCompatActivity(), ILoginView , View.OnClickListener {
 
 
         buttonLogin.setOnClickListener(View.OnClickListener {
-            val username = edittext_username.text.toString()
+            /*val username = edittext_username.text.toString()
             val password = edittext_pass.text.toString()
-                mLoginPresenter.validateCredentials(username, password)
+                mLoginPresenter.validateCredentials(username, password)*/
+            openHomeActivity()
         })
 
         edittext_username.setOnClickListener(this)
@@ -69,6 +72,7 @@ class Login : AppCompatActivity(), ILoginView , View.OnClickListener {
 
 
     override fun setUsernameError() {
+        textinputlayout_password.setErrorTextColor(ColorStateList.valueOf(Color.WHITE))
         textinputlayout_username.error = getString(R.string.enter_username)
     }
 
@@ -134,5 +138,13 @@ class Login : AppCompatActivity(), ILoginView , View.OnClickListener {
 
     }
 
-
+    override fun onBackPressed() {
+        super.onBackPressed()
+        var intent = Intent(Intent.ACTION_MAIN)
+        intent.addCategory(Intent.CATEGORY_HOME)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        intent.flags= Intent.FLAG_ACTIVITY_CLEAR_TOP
+        startActivity(intent)
+        finish()
+    }
 }

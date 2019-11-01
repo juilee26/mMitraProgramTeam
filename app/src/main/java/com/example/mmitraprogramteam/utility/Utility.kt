@@ -144,7 +144,7 @@ class Utility {
 
         if(telephonyInfo.isDualSIM()){
             if (telephonyInfo.imsiSIM1!=null){
-                imeiNumber = telephonyInfo.imsiSIM1
+                imeiNumber ="123456789012345"// telephonyInfo.imsiSIM1
             }
             else
                 telephonyInfo.imsiSIM2?.let { imeiNumber = it }
