@@ -62,6 +62,7 @@
                 android:layout_marginRight="10dp"
                 android:textColorHint="#FFFFFF"
                 app:errorEnabled="true"
+                app:errorTextAppearance="@style/ErrorAppearance"
                 app:hintTextAppearance="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -71,14 +72,13 @@
                     android:id="@+id/edittext_username"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:backgroundTint="@color/gray"
                     android:hint="username"
                     android:inputType="text"
-                    android:backgroundTint="@color/gray"
                     android:textColor="#FFFFFF"
                     android:textColorHighlight="#E79FA5"
                     android:textColorLink="#FFFFFF"
-                    android:textCursorDrawable="@color/cursor_color"
-                    android:textSize="24sp" />
+                    android:textSize="18sp" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -91,6 +91,7 @@
                 android:textColorHint="#FFFFFF"
                 app:errorEnabled="true"
                 app:hintTextAppearance="@color/white"
+                app:errorTextAppearance="@style/ErrorAppearance"
                 app:layout_constraintEnd_toEndOf="@+id/textinputlayout_username"
                 app:layout_constraintStart_toStartOf="@+id/textinputlayout_username"
                 app:layout_constraintTop_toBottomOf="@+id/textinputlayout_username"
@@ -100,17 +101,16 @@
                     android:id="@+id/edittext_pass"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:backgroundTint="@color/gray"
                     android:hint="password"
                     android:imeOptions="actionDone"
                     android:inputType="textPassword"
                     android:maxLines="1"
-                    android:nextFocusDown="@id/button_login"
+                    android:nextFocusDown="@id/buttonLogin"
                     android:textColor="#FFFFFF"
-                    android:backgroundTint="@color/gray"
                     android:textColorHighlight="#E79FA5"
                     android:textColorLink="#0000574B"
-                    android:textCursorDrawable="@color/cursor_color"
-                    android:textSize="24sp"
+                    android:textSize="18sp"
                     app:layout_constraintBottom_toTopOf="@+id/guidelineTop"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.0"
@@ -121,7 +121,7 @@
 
 
             <Button
-                android:id="@+id/button_login"
+                android:id="@+id/buttonLogin"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="40dp"
@@ -129,7 +129,7 @@
                 android:layout_marginEnd="40dp"
                 android:background="@drawable/rounded_button"
                 android:text="LOGIN"
-                android:textColor="#FFFFFF"
+                android:textColor="@color/white"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="@+id/textinputlayout_password"
