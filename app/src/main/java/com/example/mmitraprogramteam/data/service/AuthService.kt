@@ -1,4 +1,4 @@
-package tech.inscripts.ins_armman.mMitra.data.service
+package com.example.mmitraprogramteam.data.service
 
 import android.content.Context
 import com.example.mmitraprogramteam.R
@@ -8,7 +8,6 @@ import org.json.JSONException
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Response
-
 import tech.inscripts.ins_armman.mMitra.login.ILoginInteractor
 import java.io.IOException
 
@@ -20,7 +19,6 @@ class AuthService {
         this.loginServiceAPI = loginServiceAPI
     }
 
-
     fun getAuthentication(userDetails: UserDetails, onLoginFinished: ILoginInteractor.OnLoginFinished, context: Context){
 if(userDetails!=null){
     val responseBodyCall : Call<ResponseBody> = loginServiceAPI!!.getAuthentication(userDetails)
@@ -29,9 +27,9 @@ if(userDetails!=null){
             try {
                 var loginJsonResponse: String? = null
                 if (response.body() != null) {
-                    //loginJsonResponse = response.body().string()
+                    loginJsonResponse = response.body()?.string()
                 } else if (response.errorBody() != null) {
-                    //loginJsonResponse = response.errorBody().string()
+                    loginJsonResponse = response.errorBody()?.string()
                 }
                 val loginJsonObject = JSONObject(loginJsonResponse)
                 onLoginFinished.onSuccess(loginJsonObject)

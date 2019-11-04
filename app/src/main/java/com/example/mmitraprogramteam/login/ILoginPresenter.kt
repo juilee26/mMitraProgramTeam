@@ -1,8 +1,8 @@
 package tech.inscripts.ins_armman.mMitra.login
 
-import tech.inscripts.ins_armman.mMitra.utility.IBasePresenter
+import com.example.mmitraprogramteam.utility.IBasePresenter
 
-interface ILoginPresenter<v> : IBasePresenter<v>{
+interface ILoginPresenter<v> : IBasePresenter<v> {
 
     fun initializeDBHelper()
     fun checkPermissions(): Boolean
