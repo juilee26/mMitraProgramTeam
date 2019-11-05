@@ -17,4 +17,13 @@
     <color name="cursor_color">#55020B</color>
     <color name="homescreen_transperant">#00474646</color>
     <color name="error_color">#E9393F</color>
+    <color name="color_pinkish_grey">#bebebe</color>
+    <color name="color_blue">#3f51b5</color>
+    <color name="text_color">#212121</color>
+    <color name="color_white">#FFFFFF</color>
+    <color name="color_dark_gray">#414041</color>
+    <color name="dependent_question_background">#EEEEEE</color>
+    <color name="main_question_background">#F5F5F5</color>
+    <color name="enroll_form">#0288D1</color>
+    <color name="color_btn_normal">#757575</color>
 </resources>

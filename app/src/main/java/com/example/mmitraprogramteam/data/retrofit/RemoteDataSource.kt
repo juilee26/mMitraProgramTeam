@@ -1,7 +1,7 @@
-package tech.inscripts.ins_armman.mMitra.data.retrofit
+package com.example.mmitraprogramteam.data.retrofit
 
+import com.example.mmitraprogramteam.data.service.*
 import retrofit2.Retrofit
-import tech.inscripts.ins_armman.mMitra.data.service.*
 
 class RemoteDataSource {
     private var mRemoteDataSource: RemoteDataSource? = null
@@ -29,7 +29,7 @@ fun <T> createApiService(apiInterface : Class<T>) : T? {
         return AuthService(createApiService(LoginServiceAPI::class.java))
     }
 
-    /*fun downloadFormService(): FormDownloadService {
+    fun downloadFormService(): FormDownloadService {
 return FormDownloadService(createApiService(FormDownloadServiceAPI::class.java))
     }
 
@@ -59,6 +59,6 @@ return FormDownloadService(createApiService(FormDownloadServiceAPI::class.java))
 
     fun syncUpdatePhotoService(): SyncUpdatePhotoService {
         return SyncUpdatePhotoService(createApiService(SyncUpdatePhotoServiceApi::class.java))
-    }*/
+    }
 
 }

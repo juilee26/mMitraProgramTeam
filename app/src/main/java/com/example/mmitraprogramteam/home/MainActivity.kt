@@ -13,9 +13,7 @@ import com.smarteist.autoimageslider.SliderAnimations
 import com.smarteist.autoimageslider.SliderView
 import kotlinx.android.synthetic.main.activity_main.*
 
-
 class MainActivity : AppCompatActivity() {
-
 
 var image_Array : IntArray = intArrayOf(R.drawable.image1,R.drawable.imag2,R.drawable.image3)
 

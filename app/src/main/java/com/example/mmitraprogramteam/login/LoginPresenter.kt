@@ -10,9 +10,8 @@ import com.example.mmitraprogramteam.data.database.DBHelper
 import com.example.mmitraprogramteam.data.database.DatabaseManager
 import com.example.mmitraprogramteam.data.model.UserDetails
 import com.example.mmitraprogramteam.utility.Constants.AUTHENTICATION_FAILED
-
+import com.example.mmitraprogramteam.utility.Utility
 import org.json.JSONObject
-import tech.inscripts.ins_armman.mMitra.utility.Utility
 import java.util.*
 
 class LoginPresenter : ILoginPresenter<ILoginView>, ILoginInteractor.OnLoginFinished {
@@ -52,8 +51,7 @@ class LoginPresenter : ILoginPresenter<ILoginView>, ILoginInteractor.OnLoginFini
         val listPermissionsNeeded = ArrayList<String>()
 
         for (permission in permissions) {
-            if (ContextCompat.checkSelfPermission(
-                    iLoginview!!.getContext(),
+            if (ContextCompat.checkSelfPermission(iLoginview!!.getContext(),
                     permission
                 ) != PackageManager.PERMISSION_GRANTED
             ) {

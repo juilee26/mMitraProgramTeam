@@ -1,4 +1,4 @@
-package tech.inscripts.ins_armman.mMitra.data.service
+package com.example.mmitraprogramteam.data.service
 
 import com.example.mmitraprogramteam.data.Url.Companion.AUTHENTICATE
 import com.example.mmitraprogramteam.data.model.UserDetails

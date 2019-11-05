@@ -2,14 +2,9 @@ package com.example.mmitraprogramteam.data.model
 
 import com.google.gson.annotations.SerializedName
 
-
-import java.util.ArrayList
-
-
-
  open class UserDetails {
 
-    @SerializedName("email")
+    @SerializedName("username")
     var userName: String = ""
     @SerializedName("password")
     var password: String = ""

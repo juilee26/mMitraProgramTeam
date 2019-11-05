@@ -1,4 +1,4 @@
-package tech.inscripts.ins_armman.mMitra.utility
+package com.example.mmitraprogramteam.utility
 
 import android.content.Context
 import android.graphics.*

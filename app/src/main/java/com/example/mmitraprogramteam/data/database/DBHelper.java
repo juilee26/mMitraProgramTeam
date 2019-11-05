@@ -7,11 +7,12 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.example.mmitraprogramteam.utility.Utility;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import tech.inscripts.ins_armman.mMitra.utility.Utility;
 
 import static com.example.mmitraprogramteam.data.database.DatabaseContract.*;
 
