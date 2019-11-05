@@ -9,6 +9,7 @@ import org.json.JSONException
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Response
+import tech.inscripts.ins_armman.mMitra.homeactivity.IMainActivityInteractor
 import java.io.IOException
 
 class SyncRegistrationService {
@@ -18,7 +19,7 @@ class SyncRegistrationService {
         this.serviceApi = serviceApi
     }
 
-/*
+
     fun syncRegistrationDetails(registrationDetails : SyncRegistrationDetails, onDataSync : IMainActivityInteractor.OnDataSync, context: Context){
         val responsebodyCall : Call<ResponseBody> = serviceApi!!.SyncRegistrationDetails(registrationDetails)
         responsebodyCall.enqueue(object : retrofit2.Callback<ResponseBody>{
@@ -30,10 +31,10 @@ class SyncRegistrationService {
                 try{
                     var loginJsonResponse : String?=null
                     if(response!!.body()!=null){
-                        loginJsonResponse=response.body().string()
+                        loginJsonResponse=response.body()?.string()
                     }
                     else if(response!!.errorBody()!=null){
-                        loginJsonResponse=response.errorBody().string()
+                        loginJsonResponse=response.errorBody()?.string()
                     }
                     val jsonObject =JSONObject(loginJsonResponse)
                     onDataSync.onSuccessFullySyncRegData(jsonObject)
@@ -50,5 +51,5 @@ class SyncRegistrationService {
         })
     }
 
-*/
+
 }

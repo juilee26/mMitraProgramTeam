@@ -5,7 +5,8 @@ interface Url {
 
         //API V2 added after dataSource sync error message structure changed
 
-        var BASE_URL = "http://192.168.0.60/ArogyaSakhi-API/V2/"
+        //var BASE_URL = "http://192.168.0.60/ArogyaSakhi-API/V2/"
+        var BASE_URL = "http://testmmitraapi.000webhostapp.com/mMitra_API/"
       //  var BASE_URL ="http://mcts.armman.org/API/"
         const val AUTHENTICATE = "login"
         const val DOWNLOAD_FORMS = "newjson"

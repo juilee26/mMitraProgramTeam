@@ -12,13 +12,11 @@ import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat.startActivity
 import com.example.mmitraprogramteam.R
 import com.example.mmitraprogramteam.data.database.*
 import com.example.mmitraprogramteam.home.MainActivity
-import com.example.mmitraprogramteam.timepass_activity
 import com.example.mmitraprogramteam.utility.Utility
-import kotlinx.android.synthetic.main.layout_login.*
+import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.progress_overlay.*
 import tech.inscripts.ins_armman.mMitra.login.ILoginView
 import tech.inscripts.ins_armman.mMitra.login.LoginPresenter
@@ -45,20 +43,20 @@ class Login : AppCompatActivity(), ILoginView , View.OnClickListener {
             {
                 uti.setApplicationLocale(applicationContext,applicationLanguage)
             }
-            setContentView(com.example.mmitraprogramteam.R.layout.layout_login)
+            setContentView(com.example.mmitraprogramteam.R.layout.activity_login)
             mLoginPresenter.attachView(this)
 
-            edittext_pass.setOnEditorActionListener(TextView.OnEditorActionListener { textView, actionId, keyEvent ->
-                if (actionId == EditorInfo.IME_ACTION_DONE)
-                    buttonLogin.performClick()
-                false
-            })
+        edittext_pass.setOnEditorActionListener(TextView.OnEditorActionListener { textView, actionId, keyEvent ->
+            if (actionId == EditorInfo.IME_ACTION_DONE)
+                buttonLogin.performClick()
+            false
+        })
 
-            buttonLogin.setOnClickListener(View.OnClickListener {
-                /*val username = edittext_username.text.toString()
+        buttonLogin.setOnClickListener(View.OnClickListener {
+                val username = edittext_username.text.toString()
                 val password = edittext_pass.text.toString()
-                    mLoginPresenter.validateCredentials(username, password)*/
-                openHomeActivity()
+                    mLoginPresenter.validateCredentials(username, password)
+                //openHomeActivity()
             })
 
             edittext_username.setOnClickListener(this)
@@ -114,7 +112,7 @@ class Login : AppCompatActivity(), ILoginView , View.OnClickListener {
     }
 
     override fun openHomeActivity() {
-        val myIntent = Intent(this@Login, timepass_activity::class.java)
+        val myIntent = Intent(this@Login, MainActivity::class.java)
         startActivity(myIntent)
     }
 

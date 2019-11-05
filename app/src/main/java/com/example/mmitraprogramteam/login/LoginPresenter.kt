@@ -10,6 +10,7 @@ import com.example.mmitraprogramteam.data.database.DBHelper
 import com.example.mmitraprogramteam.data.database.DatabaseManager
 import com.example.mmitraprogramteam.data.model.UserDetails
 import com.example.mmitraprogramteam.utility.Constants.AUTHENTICATION_FAILED
+import com.example.mmitraprogramteam.utility.Constants.AUTHENTICATION_SUCCESS
 import com.example.mmitraprogramteam.utility.Utility
 import org.json.JSONObject
 import java.util.*
@@ -123,10 +124,10 @@ class LoginPresenter : ILoginPresenter<ILoginView>, ILoginInteractor.OnLoginFini
     }
 
     override fun onSuccess(jsonObject: JSONObject){
-       if (jsonObject.has("response")){
-               when (jsonObject.optString("response")) {
-                   "AUTHENTICATION_SUCCESS" -> {
-                       iLogInteractor.saveUserDetails(mUserDetails.userName!!, mUserDetails.password!!, jsonObject)
+       if (jsonObject.has("status")){
+               when (jsonObject.optString("status")) {
+                   AUTHENTICATION_SUCCESS -> {
+                       iLogInteractor.saveUserDetails(mUserDetails.email!!, mUserDetails.password!!, jsonObject)
                        iLoginview?.hideProgressBar()
                        iLoginview?.openHomeActivity()
                    }

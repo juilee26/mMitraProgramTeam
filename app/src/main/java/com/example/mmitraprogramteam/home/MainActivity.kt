@@ -1,86 +1,204 @@
 package com.example.mmitraprogramteam.home
 
+import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Color
+import android.graphics.drawable.LayerDrawable
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.widget.TextView
+import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import com.example.mmitraprogramteam.R
-import com.smarteist.autoimageslider.IndicatorAnimations
-import com.smarteist.autoimageslider.IndicatorView.draw.controller.DrawController
-import com.smarteist.autoimageslider.SliderAnimations
-import com.smarteist.autoimageslider.SliderView
+import com.example.mmitraprogramteam.forms.EnrollmentQuestions
+import com.example.mmitraprogramteam.settingactivity.Settings
+import com.example.mmitraprogramteam.settingactivity.SettingsActivity
+import com.example.mmitraprogramteam.settingactivity.SettingsPresentor
+import com.example.mmitraprogramteam.utility.Utility
+import com.google.android.material.navigation.NavigationView
+import com.google.android.material.snackbar.Snackbar
+import kotlinx.android.synthetic.main.activity_homeactivity.*
 import kotlinx.android.synthetic.main.activity_main.*
+import tech.inscripts.ins_armman.mMitra.homeactivity.IMainActivity
+import tech.inscripts.ins_armman.mMitra.homeactivity.MainActivityPresentor
+import java.util.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(),IMainActivity,NavigationView.OnNavigationItemSelectedListener{
 
-var image_Array : IntArray = intArrayOf(R.drawable.image1,R.drawable.imag2,R.drawable.image3)
 
+    var image_Array : IntArray = intArrayOf(R.drawable.image1,R.drawable.imag2,R.drawable.image3)
     //internal lateinit var viewPager : ViewPager
+    var mPresenter: MainActivityPresentor?=null
+    var utility : Utility = Utility()
+    var mSyncDrawable: LayerDrawable? = null
+    var mProgressDialog: AlertDialog? = null
+    var settingsPresentor : SettingsPresentor?=null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        /*setSupportActionBar(toolbar)
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
-        }*/
+        setContentView(R.layout.activity_homeactivity)
+        val toolbar : Toolbar = findViewById(R.id.toolbar)
+        toolbar.setTitle(R.string.home)
+        toolbar.setTitleTextColor(Color.WHITE)
+        toolbar.setNavigationIcon(R.drawable.ic_navigation_icon)
+        setSupportActionBar(toolbar)
+        val toggle = ActionBarDrawerToggle(            this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
+        drawer_layout.addDrawerListener(toggle)
+        toggle.syncState()
+        /*mPresenter?.getLoginDetail(userDetails)
+        val name = userDetails.get(0)     */
+        nav_view.setNavigationItemSelectedListener(this)
+        var navigationView : NavigationView = findViewById(R.id.nav_view)
+        navigationView?.setNavigationItemSelectedListener(this)
+        var header : View = navigationView!!.getHeaderView(0)
+        var textUserName : TextView = header.findViewById(R.id.navUserName)
+        textUserName.text="USER"
+        var drawerLayout : DrawerLayout = findViewById(R.id.drawer_layout)
+        var mDrawerToggle = ActionBarDrawerToggle(this,drawerLayout,R.string.app_name,R.string.app_name)
+        mDrawerToggle.getDrawerArrowDrawable().setColor(Color.WHITE)
+        drawerLayout.addDrawerListener(mDrawerToggle)
+        mDrawerToggle.syncState()
 
-        /* for ( i in image_Array.indices){
 
-            flipImage(image_Array[i])
+        viewPager.setAdapter(SliderAdapter(this, image_Array))
+        indicator.setupWithViewPager(viewPager, true)
 
-        }
-*/
-       /* var adapter = ViewPagerAdapter(this)
-        viewpager.adapter = adapter
-       */
+        val timer = Timer()
+        timer.scheduleAtFixedRate(SliderTimer(), 1000, 6000)
 
-
-        val adapter = SliderAdapter(this)
-        adapter.setCount(5)
-        imageSlider.sliderAdapter = adapter
-        imageSlider.setIndicatorAnimation(IndicatorAnimations.SLIDE) //set indicator animation by using SliderLayout.IndicatorAnimations. :WORM or THIN_WORM or COLOR or DROP or FILL or NONE or SCALE or SCALE_DOWN or SLIDE and SWAP!!
-        imageSlider.setSliderTransformAnimation(SliderAnimations.CUBEINROTATIONTRANSFORMATION)
-        imageSlider.setAutoCycleDirection(SliderView.AUTO_CYCLE_DIRECTION_BACK_AND_FORTH)
-        imageSlider.setIndicatorSelectedColor(Color.WHITE)
-        imageSlider.setIndicatorUnselectedColor(Color.GRAY)
-        imageSlider.startAutoCycle()
-
-        imageSlider.setOnIndicatorClickListener(DrawController.ClickListener { position ->
-            imageSlider.setCurrentPagePosition(
-                position
-            )
-        })
     }
 
-    /*fun flipImage(i: Int) {
-        var view = ImageView (this)
-        view.setBackgroundResource(i)
-        imageFlipper.addView(view)
-        imageFlipper.flipInterval=4000
-        imageFlipper.isAutoStart = true
-        imageFlipper.setInAnimation(this,android.R.anim.slide_out_right)
-        imageFlipper.setOutAnimation(this,android.R.anim.slide_in_left)
+    override fun getContext(): Context {
+        return this    }
 
-    }*/
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.menu_main, menu)
-        return true
+        menuInflater.inflate(R.menu.menu_home_activity, menu)
+        val item = menu?.findItem(R.id.action_sync)
+        mSyncDrawable = item?.icon as LayerDrawable
+        utility.setBadgeCount(this, mSyncDrawable!!, 0)
+        mPresenter?.fetchUnsentFormsCount()
+        return super.onCreateOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        return when (item.itemId) {
-            R.id.action_settings -> true
-            else -> super.onOptionsItemSelected(item)
+        if(item!=null){
+        when (item.itemId) {
+            R.id.action_settings -> startActivity(Intent(Intent(this@MainActivity, Settings::class.java)))
+           // R.id.action_sync -> mPresenter?.fetchRegistrationData()
         }
+        }
+        return super.onOptionsItemSelected(item)
     }
+
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.nav_registration -> {
+                startActivity(Intent(this, EnrollmentQuestions::class.java))
+            }
+            R.id.nav_complete -> {
+          //      startActivity(Intent(this, CompleteFormActivity::class.java))
+            }
+            R.id.nav_updateForms -> {
+                mPresenter?.downloadForms()
+            }
+            R.id.nav_restoreData -> {
+                val builder = AlertDialog.Builder(getContext())
+                builder.setTitle(R.string.restore_data)
+                    // builder.setTitle("NOTICE")
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .setMessage(R.string.dialog_msg_loss_data_warning)
+                    //.setMessage("This Functionality in in progress..")
+                    .setCancelable(false)
+                    .setPositiveButton(
+                        R.string.ok
+                    ) { dialog, which -> mPresenter?.restoreData()
+                    }
+                    .setNegativeButton(
+                        R.string.cancel
+                    ) { dialog, which -> dialog.cancel() }
+                    .show()
+
+            }
+
+            R.id.nav_checkUpdate -> {
+                mPresenter?.checkUpdate()
+            }
+
+            R.id.nav_logout -> {
+                val builder = AlertDialog.Builder(getContext())
+                builder.setTitle(R.string.logout)
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .setMessage(R.string.logout_message)
+                    .setCancelable(false)
+                    .setPositiveButton(
+                        R.string.ok
+                    ) { dialog, which -> mPresenter?.logout() }
+                    .setNegativeButton(
+                        R.string.cancel
+                    ) { dialog, which -> dialog.cancel() }
+                    .show()
+
+            }
+        }
+        val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
+        drawerLayout.closeDrawer(GravityCompat.START)
+        return true    }
+
+    override fun showSnackBar(message: String) {
+        val snackbar = Snackbar
+            .make(findViewById(android.R.id.content), message, Snackbar.LENGTH_SHORT)
+
+        snackbar.show()    }
+
+    override fun setUnsentFormsCount(count: Int) {
+        if (mSyncDrawable != null) utility.setBadgeCount(this, mSyncDrawable!!, count)    }
+
+    override fun showProgressBar(label: String) {
+        var inflater = this.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        var dialogView = inflater.inflate(R.layout.progress_dialog_layout, null)
+        var textView = dialogView.findViewById<TextView>(R.id.textView_label)
+        textView.text = label
+        var mAlertDialogBuilder =AlertDialog.Builder(this)
+        mAlertDialogBuilder.setView(dialogView)
+        mAlertDialogBuilder.setCancelable(false)
+        mProgressDialog = mAlertDialogBuilder.create()
+        mProgressDialog?.show()    }
+
+    override fun hideProgressBar() {
+        if (mProgressDialog != null) mProgressDialog?.dismiss()    }
+
+    override fun showFormUpdateErrorDialog() {
+        val builder = AlertDialog.Builder(getContext())
+        builder.setTitle(R.string.restore_warning_text)
+            .setIcon(android.R.drawable.ic_dialog_alert)
+            .setMessage(R.string.update_forms_message)
+            .setCancelable(false)
+            .setPositiveButton(
+                R.string.ok
+            ) { dialog, which -> startActivity(Intent(this, SettingsActivity::class.java)) }
+            .show()    }
+
+    override fun updateAvailable(url: String) {
+        android.app.AlertDialog.Builder(this)
+            .setMessage(getString(R.string.dialog_update_available))
+            .setPositiveButton(getString(R.string.dialog_install_text), DialogInterface.OnClickListener { dialog, which ->
+                settingsPresentor!!.downloadApk(url)
+            })
+            .setNegativeButton(getString(R.string.cancel),
+                DialogInterface.OnClickListener { dialog, which ->  })
+            .show()    }
+
+
+
     override fun onBackPressed() {
         super.onBackPressed()
         var intent = Intent(Intent.ACTION_MAIN)
@@ -90,4 +208,17 @@ var image_Array : IntArray = intArrayOf(R.drawable.image1,R.drawable.imag2,R.dra
         startActivity(intent)
         finish()
     }
-}
+
+    private inner class SliderTimer : TimerTask() {
+
+        override fun run() {
+            this@MainActivity.runOnUiThread(Runnable {
+                if (viewPager.getCurrentItem() < image_Array.size- 1) {
+                    viewPager.setCurrentItem(viewPager.getCurrentItem() + 1)
+                } else {
+                    viewPager.setCurrentItem(0)
+                }
+            })
+        }
+    }
+    }

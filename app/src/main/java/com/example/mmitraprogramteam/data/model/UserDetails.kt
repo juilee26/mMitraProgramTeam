@@ -4,25 +4,25 @@ import com.google.gson.annotations.SerializedName
 
  open class UserDetails {
 
-    @SerializedName("username")
-    var userName: String = ""
+    @SerializedName("email")
+    var email: String = ""
     @SerializedName("password")
     var password: String = ""
     @SerializedName("imei")
     //private var imei: ArrayList<String>? = null
     private var imei: String = ""
 
-    @SerializedName("showdata")
-    private var showdata: String? = null
+    /*@SerializedName("showdata")
+    private var showdata: String? = null*/
 
      @SerializedName("userId")
      private var userId: String? = null
 
 
-    fun setShowdata(showdata: String) {
+    /*fun setShowdata(showdata: String) {
         this.showdata = showdata
     }
-
+*/
 
     /*fun setImei(imei: ArrayList<String>?) {
         this.imei = imei
@@ -37,9 +37,9 @@ import com.google.gson.annotations.SerializedName
         this.password = pass
     }
 
-     fun setusername(user: String)
+     fun setusername(email: String)
     {
-        this.userName = user
+        this.email = email
     }
 
      fun setUserId(userId : String)
@@ -54,11 +54,11 @@ import com.google.gson.annotations.SerializedName
 
     override fun toString(): String {
         return "UserDetails{" +
-                "userName='" + userName + '\''.toString() +
+                "email='" + email + '\''.toString() +
                 ", password='" + password + '\''.toString() +
 
                 ", imei=" + imei +
-                ", showdata='" + showdata + '\''.toString() +
+               // ", showdata='" + showdata + '\''.toString() +
                 '}'.toString()
     }
 

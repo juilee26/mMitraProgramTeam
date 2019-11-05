@@ -1,111 +1,70 @@
-/*
 package com.example.mmitraprogramteam.home
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
-import android.widget.Toast
-import com.bumptech.glide.Glide
+import androidx.core.content.ContextCompat
+
+import androidx.viewpager.widget.PagerAdapter
+import androidx.viewpager.widget.ViewPager
+
 import com.example.mmitraprogramteam.R
-import com.smarteist.autoimageslider.SliderViewAdapter
+import kotlin.random.Random
 
- class SliderAdapter (private val context: Context) :
-        SliderViewAdapter<SliderAdapter.SliderAdapterVH>() {
-        private var mCount: Int = 0
-
-        fun setCount(count: Int) {
-            this.mCount = count
-        }
-
-        override fun onCreateViewHolder(parent: ViewGroup): SliderAdapterVH {
-            val inflate =
-                LayoutInflater.from(parent.context).inflate(R.layout.image_slider_layout_item, null)
-            return SliderAdapterVH(inflate)
-        }
-
-        override fun onBindViewHolder(viewHolder: SliderAdapterVH, position: Int) {
+internal class SliderAdapter() : PagerAdapter() {
 
 
-            viewHolder.itemView.setOnClickListener {
-                Toast.makeText(
-                    context,
-                    "This is item in position $position",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-
-
-            when (position) {
-                0 -> {
-                    viewHolder.textViewDescription.text = "This is slider item $position"
-                    viewHolder.textViewDescription.textSize = 16f
-                    viewHolder.textViewDescription.setTextColor(Color.WHITE)
-                    viewHolder.imageGifContainer.visibility = View.GONE
-                    Glide.with(viewHolder.itemView)
-                        .load(R.drawable.image1)
-                        .fitCenter()
-                        .into(viewHolder.imageViewBackground)
-                }
-                2 -> {
-                    viewHolder.textViewDescription.text = "This is slider item $position"
-                    viewHolder.textViewDescription.textSize = 16f
-                    viewHolder.textViewDescription.setTextColor(Color.WHITE)
-                    viewHolder.imageGifContainer.visibility = View.GONE
-                    Glide.with(viewHolder.itemView)
-                        .load(R.drawable.imag2)
-                        .fitCenter()
-                        .into(viewHolder.imageViewBackground)
-                }
-                4 -> {
-                    viewHolder.textViewDescription.text = "This is slider item $position"
-                    viewHolder.textViewDescription.textSize = 16f
-                    viewHolder.textViewDescription.setTextColor(Color.WHITE)
-                    viewHolder.imageGifContainer.visibility = View.GONE
-                    Glide.with(viewHolder.itemView)
-                        .load(R.drawable.image3)
-                        .fitCenter()
-                        .into(viewHolder.imageViewBackground)
-                }
-                else -> {
-                    viewHolder.textViewDescription.textSize = 29f
-                    viewHolder.textViewDescription.setTextColor(Color.WHITE)
-                    viewHolder.textViewDescription.text = "Ohhhh! look at this!"
-                    viewHolder.imageGifContainer.visibility = View.VISIBLE
-                    Glide.with(viewHolder.itemView)
-                        .load(R.drawable.image1)
-                        .fitCenter()
-                        .into(viewHolder.imageViewBackground)
-                    Glide.with(viewHolder.itemView)
-                        .asGif()
-                        .load(R.drawable.imag2)
-                        .into(viewHolder.imageGifContainer)
-                }
-            }
-
-        }
-
-        override fun getCount(): Int {
-            //slider view count could be dynamic size
-            return mCount
-        }
-
-        inner class SliderAdapterVH(var itemView: View) :
-            SliderViewAdapter.ViewHolder(itemView) {
-            var imageViewBackground: ImageView
-            var imageGifContainer: ImageView
-            var textViewDescription: TextView
-
-            init {
-                imageViewBackground = itemView.findViewById(R.id.iv_auto_image_slider)
-                imageGifContainer = itemView.findViewById(R.id.iv_gif_container)
-                textViewDescription = itemView.findViewById(R.id.tv_auto_image_slider)
-            }
-        }
-
-
+    lateinit var  context: Context
+    lateinit var image_Array: IntArray
+    lateinit var imageName: List<String>
+    constructor(context: Context, image_Array: IntArray) : this() {
+        this.context = context
+        this.image_Array = image_Array
     }
-*/
+
+
+
+    override fun getCount(): Int {
+        return image_Array.size
+    }
+
+    override fun isViewFromObject(view: View, `object`: Any): Boolean {
+        return view === `object`
+    }
+
+    @SuppressLint("NewApi")
+    override fun instantiateItem(container: ViewGroup, position: Int): Any {
+        val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val view = inflater.inflate(R.layout.item_slider, null)
+
+        val linearLayout = view.findViewById(R.id.linearLayout) as LinearLayout
+        var imageView= view.findViewById(R.id.imageView) as ImageView
+        imageView.setImageResource(image_Array[position])
+        //linearLayout.background=ContextCompat.getDrawable(context, R.drawable.image1)
+      /*  when (position){
+            1 ->
+                linearLayout.background=(context.getDrawable(R.drawable.image1))
+            2 ->
+                linearLayout.background=(context.getDrawable(R.drawable.imag2))
+            3->
+                linearLayout.background=(context.getDrawable(R.drawable.image3))
+        }*/
+
+        val viewPager = container as ViewPager
+        viewPager.addView(view, 0)
+
+        return view
+    }
+
+    override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
+        val viewPager = container as ViewPager
+        val view = `object` as View
+        viewPager.removeView(view)
+    }
+}

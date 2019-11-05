@@ -134,14 +134,6 @@ class Utility {
 
     fun getDeviceImeiNumber(context: Context): String {
         val telephonyInfo = obj_telephonyInfo.getInstance(context)
-        //val imeiArray = ArrayList<String>()
-        // imeiArray.add("869432026925037")
-        /*if (telephonyInfo.isDualSIM()) {
-            imeiArray.add(telephonyInfo.imsiSIM1)
-            telephonyInfo.imsiSIM2?.let { imeiArray.add(it) }
-        } else {
-            imeiArray.add(telephonyInfo.imsiSIM1)
-        }*/
         var imeiNumber : String = ""
 
         if(telephonyInfo.isDualSIM()){

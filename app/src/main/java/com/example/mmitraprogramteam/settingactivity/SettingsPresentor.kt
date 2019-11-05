@@ -16,7 +16,6 @@ import com.example.mmitraprogramteam.data.model.restoreData.RestoreVisits
 import com.example.mmitraprogramteam.data.model.syncing.BeneficiaryDetails
 import com.example.mmitraprogramteam.login.Login
 import com.example.mmitraprogramteam.utility.Constants.FORM_DOWNLOAD_LIMIT
-import com.example.mmitraprogramteam.utility.Constants.HASH_ITEM_FORM
 import com.example.mmitraprogramteam.utility.Utility
 import org.json.JSONException
 import org.json.JSONObject
@@ -34,7 +33,7 @@ val utility= Utility()
 
     private  var mSettingsView: ISettingsView? = null
     private var mSettingsInteractor: SettingsInteractor? = null
-    private var mUsername: String = ""
+    private var mEmail: String = ""
     private var mPassword:String = ""
     private var mFormHash:String = ""
 
@@ -54,7 +53,7 @@ val utility= Utility()
         override fun onSuccess(cursor: Cursor, id: Int) {
            when(id){
                FETCH_USER_DATA -> if (cursor.moveToFirst()){
-                   mUsername=cursor.getString(cursor.getColumnIndex(DatabaseContract.LoginTable.COLUMN_USERNAME))
+                   mEmail=cursor.getString(cursor.getColumnIndex(DatabaseContract.LoginTable.COLUMN_USERNAME))
                    mPassword=cursor.getString(cursor.getColumnIndex(DatabaseContract.LoginTable.COLUMN_PASSWORD))
                }
                FETCH_FORM_HASH ->if (cursor.moveToFirst()){
@@ -86,7 +85,7 @@ val utility= Utility()
             mSettingsView?.showProgressBar(mSettingsView?.getContext()?.getString(R.string.downloading_data)!!)
             val details = RequestFormModel()
 /*
-            details.setusername(mUsername)
+            details.setusername(mEmail)
             details.setpassword(mPassword)
           // details.setImei("869432026925037")
             details.setImei(utility.getDeviceImeiNumber(mSettingsView!!.getContext()))
@@ -99,7 +98,7 @@ val utility= Utility()
              details.setImei("865596031245799")
           //  details.setImei(utility.getDeviceImeiNumber(mSettingsView!!.getContext()))
            // details.setHash(mSettingsInteractor!!.getHash(HASH_ITEM_FORM))
-            details.setShowdata("true")
+                 // details.setShowdata("true")
 
 
             mSettingsInteractor?.downloadForms(details, this)
@@ -155,7 +154,7 @@ val utility= Utility()
 
     override fun resetDataMemberValues() {
         mRequest = RestoreDataRequest()
-        mRequest.userName= mUsername!!
+        mRequest.email= mEmail!!
         mRequest.password= mPassword!!
         mRequest.setImei(utility.getDeviceImeiNumber(mSettingsView!!.getContext()))
         //mRequest.setImei("869432026925037")
