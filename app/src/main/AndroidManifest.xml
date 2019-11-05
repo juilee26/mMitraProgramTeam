@@ -39,6 +39,7 @@
             android:theme="@style/AppFullScreenTheme">
         </activity>
         <activity android:name=".settingactivity.Settings"/>
+        <activity android:name=".forms.EnrollmentQuestions"/>
 
     </application>
 

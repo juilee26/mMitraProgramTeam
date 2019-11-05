@@ -1,3 +1,4 @@
+/*
 package com.example.mmitraprogramteam.home
 
 import android.content.Context
@@ -107,3 +108,4 @@ import com.smarteist.autoimageslider.SliderViewAdapter
 
 
     }
+*/

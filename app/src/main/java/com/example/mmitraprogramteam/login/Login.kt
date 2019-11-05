@@ -39,7 +39,7 @@ class Login : AppCompatActivity(), ILoginView , View.OnClickListener {
             var applicationLanguage = uti.getLanguagePreferance(applicationContext)
             if(applicationLanguage?.isEmpty()!!)
             {
-                uti.setApplicationLocale(applicationContext,"eng")
+                uti.setApplicationLocale(applicationContext,"en")
             }
             else
             {

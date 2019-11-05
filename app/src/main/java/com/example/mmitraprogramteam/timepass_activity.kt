@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.Gravity
 import android.view.View
 import android.widget.Toast
+import com.example.mmitraprogramteam.forms.EnrollmentQuestions
 import com.example.mmitraprogramteam.settingactivity.Settings
 
 class timepass_activity : AppCompatActivity() {
@@ -17,15 +18,12 @@ class timepass_activity : AppCompatActivity() {
 
     fun fetch(view: View)
     {
-       startActivity(Intent(this@timepass_activity,Settings::class.java));
+       startActivity(Intent(this@timepass_activity,Settings::class.java))
     }
 
 
     fun display(view: View)
     {
-        System.out.println("Display")
-        val myToast = Toast.makeText(applicationContext,"Display",Toast.LENGTH_SHORT)
-        myToast.setGravity(Gravity.LEFT,200,200)
-        myToast.show()
+        startActivity(Intent(this@timepass_activity,EnrollmentQuestions::class.java))
     }
 }

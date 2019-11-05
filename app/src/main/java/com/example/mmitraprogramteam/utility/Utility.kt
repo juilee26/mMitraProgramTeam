@@ -18,8 +18,8 @@ import com.example.mmitraprogramteam.R
 import com.example.mmitraprogramteam.data.database.*
 import com.example.mmitraprogramteam.utility.Constants.UNIQUE_MEMBER_ID_SEPERATOR
 import org.joda.time.*
-import tech.inscripts.ins_armman.mMitra.utility.BadgeDrawable
-import tech.inscripts.ins_armman.mMitra.utility.DateUtility
+import com.example.mmitraprogramteam.utility.BadgeDrawable
+import com.example.mmitraprogramteam.utility.DateUtility
 import java.io.ByteArrayOutputStream
 import java.io.IOException
 import java.nio.charset.Charset
