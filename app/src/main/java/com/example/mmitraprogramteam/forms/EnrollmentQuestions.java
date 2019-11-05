@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
@@ -56,6 +55,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.mmitraprogramteam.R;
+import com.example.mmitraprogramteam.data.volley.SingletonRequestQueue;
 import com.example.mmitraprogramteam.home.MainActivity;
 import com.example.mmitraprogramteam.timepass_activity;
 import com.example.mmitraprogramteam.utility.SpinnerItems;
@@ -116,6 +116,10 @@ import static com.example.mmitraprogramteam.utility.Keywords.WOMAN_DOB;
 import static com.example.mmitraprogramteam.utility.Keywords.WOMAN_MOB_NO;
 import static com.example.mmitraprogramteam.utility.Keywords.WOMAN_NAME;
 
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 
 /**
  * This class is used to display questions of registration forms dynamically from the localDB.
@@ -124,6 +128,7 @@ import static com.example.mmitraprogramteam.utility.Keywords.WOMAN_NAME;
 public class EnrollmentQuestions extends AppCompatActivity
 {
 
+    String mobile_number,otp_gen_number,otp_submited;
     public static final int MEDIA_TYPE_IMAGE = 1;
     public static final int MEDIA_TYPE_VIDEO = 2;
     private static final String TAG = "EnrollmentQuestions";
@@ -260,6 +265,7 @@ public class EnrollmentQuestions extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_enrollment);
+        setTitle("Registration");
 
         System.out.println("created on : " + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US).format(new Date()));
 
@@ -1615,7 +1621,13 @@ public class EnrollmentQuestions extends AppCompatActivity
                     womendetails.put(keyword, et.getText().toString());
                     womenanswer.put(et.getId(), "" + formid + delimeter + setid + delimeter + keyword + delimeter + et.getText().toString());
                     Backup_answerTyped1.put(et.getId(), "" + formid + delimeter + setid + delimeter + keyword + delimeter + et.getText().toString()); // this hashmap is used to insert dataSource in Backup_AnswerEntered
-
+                   if(keyword.equalsIgnoreCase("mobile_no")) {
+                        mobile_number = et.getText().toString();
+                    }
+                    if(keyword.equalsIgnoreCase("otp"))
+                    {
+                        otp_submited = et.getText().toString();
+                    }
 
                     /**
                      * This Code is use to check Length of the text field if it is less then it will show
@@ -1692,8 +1704,18 @@ public class EnrollmentQuestions extends AppCompatActivity
                             et.setError(null);
                             validationlist.remove(""+et.getTag());
                         }
+                    }*/
+                    if(keyword.equalsIgnoreCase("otp"))
+                    {
+                        if(otp_gen_number.equalsIgnoreCase(otp_submited))
+                        {
+                            Toast.makeText(EnrollmentQuestions.this, "OTP is Matched", Toast.LENGTH_SHORT).show();
+                        }
+                        else
+                        {
+                            Toast.makeText(EnrollmentQuestions.this, "OTP is Not Matched", Toast.LENGTH_SHORT).show();
+                        }
                     }
-*/
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -2019,10 +2041,17 @@ public class EnrollmentQuestions extends AppCompatActivity
 
                     @Override
                     public void onClick(View v) {
+                        int id = rg.getCheckedRadioButtonId();
+                        if(keyword.equalsIgnoreCase("otp_sbt"))
+                        {
+                            if(id == 1 )
+                            {
+                                Networkcall_forotp();
+                            }
+                        }
+
 
                         hideSoftKeyboard(v);
-
-                        int id = rg.getCheckedRadioButtonId();
                         int parentId = (((ViewGroup) rb.getParent()).getId()); //parentTag
 
                         storeEnteredData.put(keyword, rb.getTag().toString());
@@ -4683,7 +4712,7 @@ public class EnrollmentQuestions extends AppCompatActivity
                             woman_gest_age = null;
                             expec_date = null;
                             current_reg = null;
-                            Intent intent = new Intent(EnrollmentQuestions.this, MainActivity.class);
+                            Intent intent = new Intent(EnrollmentQuestions.this, timepass_activity.class);
                             startActivity(intent);
                             finish();
                         } catch (Exception e) {
@@ -5282,9 +5311,6 @@ public class EnrollmentQuestions extends AppCompatActivity
 
             }
 
-        /*validationlist.clear();
-        NextButtonvalidationlist.clear();*/
-
             if (scrollId.isEmpty()) {
                 progressDialog.dismiss();
 
@@ -5304,16 +5330,6 @@ public class EnrollmentQuestions extends AppCompatActivity
                 });
                 builder.show();
             } else {
-               /* String jsonFormName = questionInteractor.getFormNameFromId(Integer.valueOf(formID));
-                try {
-//                    JSONObject textobj = new JSONObject(jsonFormName);
-//                    jsonFormName = textobj.getString(mAppLanguage);
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                setTitle(jsonFormName);
-*/
                 scroll_temp = (ScrollView) findViewById(Integer.parseInt(String.valueOf(scrollId.get(scrollcounter))));
                 scroll_temp.setVisibility(View.VISIBLE);
                 previous.setVisibility(View.GONE);
@@ -5325,8 +5341,6 @@ public class EnrollmentQuestions extends AppCompatActivity
                 pageCountText = "/" + layoutcounter;
                 textViewTotalPgCount.setText(1 + pageCountText);
 
-                /*nextstaticcount=progresscount=100/layoutcounter;
-                progress.setProgress(progresscount);*/
             }
 
             next.setOnClickListener(new View.OnClickListener() {
@@ -5349,11 +5363,41 @@ public class EnrollmentQuestions extends AppCompatActivity
 
                 }
             });
-
             progressDialog.dismiss();
 
         }
     }
+
+    public void Networkcall_forotp()
+    {
+        otp_gen_number =  String.valueOf((int)(Math.random()*9000)+1000);
+        Log.d("value",mobile_number+" :: "+otp_gen_number);
+        System.out.println(mobile_number+" :: "+otp_gen_number);
+
+            final String URL = "http://testmmitraapi.000webhostapp.com/mMitra_API/otp";
+            HashMap<String, String> params = new HashMap<String, String>();
+            params.put("mobile_no",mobile_number);
+            params.put("otp", otp_gen_number);
+            params.put("password", "1234");
+            params.put("email", "sunny@gmail.com");
+            JsonObjectRequest request_json = new JsonObjectRequest(URL, new JSONObject(params),
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            Toast.makeText(EnrollmentQuestions.this,""+response.toString(),Toast.LENGTH_LONG).show();
+                        }
+                    }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.d("Error", error.toString());
+                    Toast.makeText(EnrollmentQuestions.this, ""+error.toString(), Toast.LENGTH_SHORT).show();
+                }
+            });
+
+            RequestQueue queue = SingletonRequestQueue.getInstance(getApplicationContext()).getRequestQueue();
+            queue.add(request_json);
+    }
+
 
 }
 
