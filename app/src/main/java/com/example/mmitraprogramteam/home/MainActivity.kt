@@ -6,17 +6,20 @@ import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.LayerDrawable
 import android.os.Bundle
+import android.renderscript.ScriptGroup
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.viewpager.widget.PagerAdapter
 import com.example.mmitraprogramteam.R
 import com.example.mmitraprogramteam.forms.EnrollmentQuestions
 import com.example.mmitraprogramteam.settingactivity.Settings
@@ -31,10 +34,11 @@ import tech.inscripts.ins_armman.mMitra.homeactivity.IMainActivity
 import tech.inscripts.ins_armman.mMitra.homeactivity.MainActivityPresentor
 import java.util.*
 
-class MainActivity : AppCompatActivity(),IMainActivity,NavigationView.OnNavigationItemSelectedListener{
+class MainActivity : AppCompatActivity(),IMainActivity,NavigationView.OnNavigationItemSelectedListener,View.OnClickListener{
 
 
-    var image_Array : IntArray = intArrayOf(R.drawable.image1,R.drawable.imag2,R.drawable.image3)
+
+    var image_Array : IntArray = intArrayOf(R.drawable.slide01,R.drawable.slide02,R.drawable.slide03)
     //internal lateinit var viewPager : ViewPager
     var mPresenter: MainActivityPresentor?=null
     var utility : Utility = Utility()
@@ -73,13 +77,30 @@ class MainActivity : AppCompatActivity(),IMainActivity,NavigationView.OnNavigati
         indicator.setupWithViewPager(viewPager, true)
 
         val timer = Timer()
-        timer.scheduleAtFixedRate(SliderTimer(), 1000, 6000)
+        timer.scheduleAtFixedRate(SliderTimer(), 2000, 3000)
+        btnReg.setOnClickListener(this)
+        btnWomen.setOnClickListener(this)
+        btnReports.setOnClickListener(this)
+        btnUserProfile.setOnClickListener(this)
 
-    }
+    } //end of onCreate
 
     override fun getContext(): Context {
         return this    }
 
+    override fun onClick(v: View?) {
+        when (v?.getId()) {
+            R.id.btnReg -> startActivity(Intent(this, EnrollmentQuestions::class.java))
+
+            R.id.btnWomen -> Toast.makeText(applicationContext,"Registered Women",Toast.LENGTH_SHORT).show()
+                //startActivity(Intent(this, IncompleteFormActivity::class.java))
+
+            R.id.btnReports -> Toast.makeText(applicationContext,"Reports",Toast.LENGTH_SHORT).show()
+                //startActivity(Intent(this, CompleteFormActivity::class.java))
+
+            R.id.btnUserProfile -> Toast.makeText(applicationContext,"User Profile",Toast.LENGTH_SHORT).show()
+                //startActivity(Intent(this, UserProfileActivity::class.java))
+        }    }
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_home_activity, menu)
         val item = menu?.findItem(R.id.action_sync)

@@ -4700,19 +4700,20 @@ public class EnrollmentQuestions extends AppCompatActivity
      * This method is used to exit from the current page
      */
     public void backForm() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(ctx);
+        androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(EnrollmentQuestions.this);
         builder
                 .setTitle(EnrollmentQuestions.this.getString(R.string.back_form))
                 .setMessage(EnrollmentQuestions.this.getString(R.string.back_form_message))
                 .setIcon(R.mipmap.ic_exitalert)
                 .setPositiveButton(EnrollmentQuestions.this.getString(R.string.yes), new DialogInterface.OnClickListener() {
+                    @Override
                     public void onClick(DialogInterface dialog, int which) {
 
                         try {
                             woman_gest_age = null;
                             expec_date = null;
                             current_reg = null;
-                            Intent intent = new Intent(EnrollmentQuestions.this, timepass_activity.class);
+                            Intent intent = new Intent(EnrollmentQuestions.this, MainActivity.class);
                             startActivity(intent);
                             finish();
                         } catch (Exception e) {
@@ -4722,8 +4723,8 @@ public class EnrollmentQuestions extends AppCompatActivity
                     }
                 })
                 .setNegativeButton(EnrollmentQuestions.this.getString(R.string.no), new DialogInterface.OnClickListener() {
+                    @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        //finish();
 
                     }
                 }).show();
