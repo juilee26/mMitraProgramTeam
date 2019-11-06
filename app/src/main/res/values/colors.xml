@@ -30,4 +30,6 @@
     <color name="centertblue">#70C6D3</color>
     <color name="endblue">#072427</color>
     <color name="black_color">#000000</color>
+    <color name="grey">#888</color>
+
 </resources>
