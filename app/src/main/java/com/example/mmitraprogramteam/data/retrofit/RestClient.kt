@@ -1,4 +1,4 @@
-package tech.inscripts.ins_armman.mMitra.data.retrofit
+package com.example.mmitraprogramteam.data.retrofit
 
 import com.example.mmitraprogramteam.data.Url.Companion.BASE_URL
 import okhttp3.OkHttpClient
@@ -6,7 +6,6 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
-
 
 public class RestClient {
     private var retrofit: Retrofit? = null

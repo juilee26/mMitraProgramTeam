@@ -1,4 +1,4 @@
-package tech.inscripts.ins_armman.mMitra.utility
+package com.example.mmitraprogramteam.utility
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
@@ -18,6 +18,8 @@ import com.example.mmitraprogramteam.R
 import com.example.mmitraprogramteam.data.database.*
 import com.example.mmitraprogramteam.utility.Constants.UNIQUE_MEMBER_ID_SEPERATOR
 import org.joda.time.*
+import com.example.mmitraprogramteam.utility.BadgeDrawable
+import com.example.mmitraprogramteam.utility.DateUtility
 import java.io.ByteArrayOutputStream
 import java.io.IOException
 import java.nio.charset.Charset
@@ -132,14 +134,6 @@ class Utility {
 
     fun getDeviceImeiNumber(context: Context): String {
         val telephonyInfo = obj_telephonyInfo.getInstance(context)
-        //val imeiArray = ArrayList<String>()
-        // imeiArray.add("869432026925037")
-        /*if (telephonyInfo.isDualSIM()) {
-            imeiArray.add(telephonyInfo.imsiSIM1)
-            telephonyInfo.imsiSIM2?.let { imeiArray.add(it) }
-        } else {
-            imeiArray.add(telephonyInfo.imsiSIM1)
-        }*/
         var imeiNumber : String = ""
 
         if(telephonyInfo.isDualSIM()){

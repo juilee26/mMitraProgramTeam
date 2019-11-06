@@ -1,7 +1,5 @@
 package com.example.mmitraprogramteam.utility;
 
-import tech.inscripts.ins_armman.mMitra.utility.DateUtility;
-
 /**
  * Created by lenovo on 24/10/17.
  */
@@ -160,7 +158,8 @@ public interface Constants {
     String CHILD_UNREGISTERED_ERROR = "Error: child unregistered";
     String MOTHER_DELIVERY_UNSYNCED_ERROR = "Error: mother delivery not synced";
 
-    String AUTHENTICATION_FAILED = "AUTHENTICATION_FAILED";
+    String AUTHENTICATION_SUCCESS = "Authentication Successfull";
+    String AUTHENTICATION_FAILED = "Authentication Failed";
     String RESPONSE = "response";
     String INVALID_DATA = "INVALID_DATA";
     String INVALID_IMEI = "INVALID_IMEI";

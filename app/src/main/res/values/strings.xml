@@ -94,12 +94,12 @@
     </string-array>
 
     <string-array name="languages_value" translatable="false">
-        <item>eng</item>
+        <item>en</item>
         <item>mr</item>
         <item>hi</item>
     </string-array>
 
-    <string name="default_language">eng</string>
+    <string name="default_language">en</string>
 
     <string name="forms_already_updated">Forms already updated</string>
     <string name="visit_history">Visits History</string>
@@ -329,7 +329,7 @@
 
     <string name="menu_home">Registration</string>
     <string name="menu_gallery">Complete visits</string>
-    <string name="menu_slideshow">Incomplete visits</string>
+    <string name="menu_slideshow">Registered Women</string>
     <string name="menu_tools">Update Forms</string>
     <string name="menu_share">Get Help mannual</string>
     <string name="menu_send">Restore Data</string>

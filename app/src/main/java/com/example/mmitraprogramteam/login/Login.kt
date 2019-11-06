@@ -1,46 +1,50 @@
 package com.example.mmitraprogramteam.login
 
+import android.Manifest
 import android.content.Context
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
-import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-
 import com.example.mmitraprogramteam.R
 import com.example.mmitraprogramteam.data.database.*
 import com.example.mmitraprogramteam.home.MainActivity
-import com.google.android.material.textfield.TextInputLayout
-import kotlinx.android.synthetic.main.layout_login.*
+import com.example.mmitraprogramteam.utility.Utility
+import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.progress_overlay.*
 import tech.inscripts.ins_armman.mMitra.login.ILoginView
 import tech.inscripts.ins_armman.mMitra.login.LoginPresenter
-import tech.inscripts.ins_armman.mMitra.utility.Utility
 
 class Login : AppCompatActivity(), ILoginView , View.OnClickListener {
+
+    var permissionArrays =
+        arrayOf<String>(Manifest.permission.INTERNET, Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.READ_PHONE_STATE,
+            Manifest.permission.CAMERA, Manifest.permission.ACCESS_NETWORK_STATE)
+    var REQUEST_CODE = 101
 
     val mLoginPresenter = LoginPresenter()
     val uti = Utility()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        var applicationLanguage = uti.getLanguagePreferance(applicationContext)
-        if(applicationLanguage?.isEmpty()!!)
-        {
-            uti.setApplicationLocale(applicationContext,"eng")
-        }
-        else
-        {
-            uti.setApplicationLocale(applicationContext,applicationLanguage)
-        }
-    setContentView(R.layout.layout_login)
-        mLoginPresenter.attachView(this)
-        initializeDBHelper()
+
+            var applicationLanguage = uti.getLanguagePreferance(applicationContext)
+            if(applicationLanguage?.isEmpty()!!)
+            {
+                uti.setApplicationLocale(applicationContext,"en")
+            }
+            else
+            {
+                uti.setApplicationLocale(applicationContext,applicationLanguage)
+            }
+            setContentView(com.example.mmitraprogramteam.R.layout.activity_login)
+            mLoginPresenter.attachView(this)
 
         edittext_pass.setOnEditorActionListener(TextView.OnEditorActionListener { textView, actionId, keyEvent ->
             if (actionId == EditorInfo.IME_ACTION_DONE)
@@ -48,17 +52,15 @@ class Login : AppCompatActivity(), ILoginView , View.OnClickListener {
             false
         })
 
-
         buttonLogin.setOnClickListener(View.OnClickListener {
-            /*val username = edittext_username.text.toString()
-            val password = edittext_pass.text.toString()
-                mLoginPresenter.validateCredentials(username, password)*/
-            openHomeActivity()
-        })
+                val username = edittext_username.text.toString()
+                val password = edittext_pass.text.toString()
+                    mLoginPresenter.validateCredentials(username, password)
+                //openHomeActivity()
+            })
 
-        edittext_username.setOnClickListener(this)
-        edittext_pass.setOnClickListener(this)
-
+            edittext_username.setOnClickListener(this)
+            edittext_pass.setOnClickListener(this)
 
     }
 
@@ -73,11 +75,11 @@ class Login : AppCompatActivity(), ILoginView , View.OnClickListener {
 
     override fun setUsernameError() {
         textinputlayout_password.setErrorTextColor(ColorStateList.valueOf(Color.WHITE))
-        textinputlayout_username.error = getString(R.string.enter_username)
+        textinputlayout_username.error = getString(com.example.mmitraprogramteam.R.string.enter_username)
     }
 
     override fun setPasswordError() {
-        textinputlayout_password?.error= getString(R.string.enter_password)
+        textinputlayout_password?.error= getString(com.example.mmitraprogramteam.R.string.enter_password)
     }
 
     override fun resetErrorMsg() {
@@ -94,7 +96,7 @@ class Login : AppCompatActivity(), ILoginView , View.OnClickListener {
         }
         builder.setTitle(title)
             .setMessage(message)
-            .setPositiveButton(R.string.yes) { dialog, which ->
+            .setPositiveButton(com.example.mmitraprogramteam.R.string.yes) { dialog, which ->
                 // continue with delete
             }
             .setIcon(android.R.drawable.ic_dialog_alert)

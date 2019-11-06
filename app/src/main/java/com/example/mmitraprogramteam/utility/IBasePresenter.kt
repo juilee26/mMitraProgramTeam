@@ -1,4 +1,4 @@
-package tech.inscripts.ins_armman.mMitra.utility
+package com.example.mmitraprogramteam.utility
 
 interface IBasePresenter<V> {
     fun attachView(view :V)

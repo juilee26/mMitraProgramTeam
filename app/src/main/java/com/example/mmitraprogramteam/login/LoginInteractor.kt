@@ -4,11 +4,13 @@ import android.content.ContentValues
 import android.content.Context
 import com.example.mmitraprogramteam.data.database.DatabaseContract
 import com.example.mmitraprogramteam.data.model.UserDetails
+import com.example.mmitraprogramteam.data.retrofit.RemoteDataSource
+import com.example.mmitraprogramteam.utility.Constants
+import com.example.mmitraprogramteam.utility.Constants.AUTHENTICATION_SUCCESS
+import com.example.mmitraprogramteam.utility.Utility
 import org.json.JSONException
 import org.json.JSONObject
 
-import tech.inscripts.ins_armman.mMitra.data.retrofit.RemoteDataSource
-import tech.inscripts.ins_armman.mMitra.utility.Utility
 
 class LoginInteractor : ILoginInteractor
 {
@@ -24,27 +26,22 @@ class LoginInteractor : ILoginInteractor
         authService.getAuthentication(userDetails, onLoginFinished, context)
     }
 
-    @Throws(JSONException::class)
     override fun saveUserDetails(username: String, password: String, jsonObject: JSONObject) {
-        if (jsonObject.has("data")) {
 
             deleteUserDetails()
 
-            val jsonObjectUser = jsonObject.getJSONObject("data")
+            //val jsonObjectUser = jsonObject.getJSONObject("data")
 
             val values = ContentValues()
 
-            values.put(DatabaseContract.LoginTable.COLUMN_USER_ID, jsonObjectUser.optString("id"))
-            values.put(DatabaseContract.LoginTable.COLUMN_NAME, jsonObjectUser.optString("name"))
+            //values.put(DatabaseContract.LoginTable.COLUMN_USER_ID, jsonObjectUser.optString("id"))
+           // values.put(DatabaseContract.LoginTable.COLUMN_NAME, jsonObjectUser.optString("name"))
             values.put(DatabaseContract.LoginTable.COLUMN_USERNAME, username)
             values.put(DatabaseContract.LoginTable.COLUMN_PASSWORD, password)
-            values.put(DatabaseContract.LoginTable.COLUMN_PHONE_NO, jsonObjectUser.optString("phoneno"))
+           // values.put(DatabaseContract.LoginTable.COLUMN_PHONE_NO, jsonObjectUser.optString("phoneno"))
 
             utility.getDatabase().insert(DatabaseContract.LoginTable.TABLE_NAME, null, values)
 
-        } else {
-
-        }
     }
 
     override fun deleteUserDetails() {
