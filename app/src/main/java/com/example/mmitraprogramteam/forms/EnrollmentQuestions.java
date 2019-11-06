@@ -1,9 +1,9 @@
 package com.example.mmitraprogramteam.forms;
 
-import android.app.AlertDialog;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
@@ -54,10 +54,18 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.mmitraprogramteam.R;
 import com.example.mmitraprogramteam.data.volley.SingletonRequestQueue;
 import com.example.mmitraprogramteam.home.MainActivity;
 import com.example.mmitraprogramteam.timepass_activity;
+import com.example.mmitraprogramteam.utility.Label;
 import com.example.mmitraprogramteam.utility.SpinnerItems;
 import com.example.mmitraprogramteam.utility.Utility;
 
@@ -95,10 +103,7 @@ import java.util.regex.Pattern;
 
 import bsh.EvalError;
 import bsh.Interpreter;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 
-import com.example.mmitraprogramteam.utility.Label;
 import static com.example.mmitraprogramteam.utility.Constants.FORM_ID;
 import static com.example.mmitraprogramteam.utility.Constants.UNIQUE_ID;
 import static com.example.mmitraprogramteam.utility.Constants.delimeter;
@@ -116,19 +121,12 @@ import static com.example.mmitraprogramteam.utility.Keywords.WOMAN_DOB;
 import static com.example.mmitraprogramteam.utility.Keywords.WOMAN_MOB_NO;
 import static com.example.mmitraprogramteam.utility.Keywords.WOMAN_NAME;
 
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-
 /**
  * This class is used to display questions of registration forms dynamically from the localDB.
  * After entering all dataSource the answer's are saved in local dbHelper and based on lmp date she would be directed to either ANC forms or pnc.
  */
-public class EnrollmentQuestions extends AppCompatActivity
-{
+public class EnrollmentQuestions extends AppCompatActivity {
 
-    String mobile_number,otp_gen_number,otp_submited;
     public static final int MEDIA_TYPE_IMAGE = 1;
     public static final int MEDIA_TYPE_VIDEO = 2;
     private static final String TAG = "EnrollmentQuestions";
@@ -139,6 +137,7 @@ public class EnrollmentQuestions extends AppCompatActivity
     public static String expec_date, woman_gest_age, current_reg, Server_expected_date;
     private static Utility utility = new Utility();
     public String mAppLanguage = "en";
+    String mobile_number, otp_gen_number, otp_submited;
     Utility utilityObj = new Utility();
     List<String> chechboxlist = new ArrayList<>();
     int counter;
@@ -1592,6 +1591,10 @@ public class EnrollmentQuestions extends AppCompatActivity
             public void afterTextChanged(Editable arg0) {
                 try {
 
+                    if (keyword.equalsIgnoreCase("mobile_no")) {
+                        //  next.setVisibility(View.INVISIBLE);
+                    }
+
                     System.out.println(" create Int et.getText().toString() = " + et.getText().toString());
                     System.out.println("keyword = " + keyword);
 
@@ -1621,11 +1624,10 @@ public class EnrollmentQuestions extends AppCompatActivity
                     womendetails.put(keyword, et.getText().toString());
                     womenanswer.put(et.getId(), "" + formid + delimeter + setid + delimeter + keyword + delimeter + et.getText().toString());
                     Backup_answerTyped1.put(et.getId(), "" + formid + delimeter + setid + delimeter + keyword + delimeter + et.getText().toString()); // this hashmap is used to insert dataSource in Backup_AnswerEntered
-                   if(keyword.equalsIgnoreCase("mobile_no")) {
+                    if (keyword.equalsIgnoreCase("mobile_no")) {
                         mobile_number = et.getText().toString();
                     }
-                    if(keyword.equalsIgnoreCase("otp"))
-                    {
+                    if (keyword.equalsIgnoreCase("otp")) {
                         otp_submited = et.getText().toString();
                     }
 
@@ -1705,14 +1707,10 @@ public class EnrollmentQuestions extends AppCompatActivity
                             validationlist.remove(""+et.getTag());
                         }
                     }*/
-                    if(keyword.equalsIgnoreCase("otp"))
-                    {
-                        if(otp_gen_number.equalsIgnoreCase(otp_submited))
-                        {
-                            Toast.makeText(EnrollmentQuestions.this, "OTP is Matched", Toast.LENGTH_SHORT).show();
-                        }
-                        else
-                        {
+                    if (keyword.equalsIgnoreCase("otp")) {
+                        if (otp_gen_number.equalsIgnoreCase(otp_submited)) {
+                            NextButtonValidations();
+                        } else {
                             Toast.makeText(EnrollmentQuestions.this, "OTP is Not Matched", Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -2042,10 +2040,8 @@ public class EnrollmentQuestions extends AppCompatActivity
                     @Override
                     public void onClick(View v) {
                         int id = rg.getCheckedRadioButtonId();
-                        if(keyword.equalsIgnoreCase("otp_sbt"))
-                        {
-                            if(id == 1 )
-                            {
+                        if (keyword.equalsIgnoreCase("otp_sbt")) {
+                            if (id == 1) {
                                 Networkcall_forotp();
                             }
                         }
@@ -5129,6 +5125,34 @@ public class EnrollmentQuestions extends AppCompatActivity
         return result;
     }
 
+    public void Networkcall_forotp() {
+        otp_gen_number = String.valueOf((int) (Math.random() * 9000) + 1000);
+        Log.d("value", mobile_number + " :: " + otp_gen_number);
+        System.out.println(mobile_number + " :: " + otp_gen_number);
+
+        final String URL = "http://testmmitraapi.000webhostapp.com/mMitra_API/otp";
+        HashMap<String, String> params = new HashMap<String, String>();
+        params.put("mobile_no", mobile_number);
+        params.put("otp", otp_gen_number);
+        params.put("password", "1234");
+        params.put("email", "sunny@gmail.com");
+        JsonObjectRequest request_json = new JsonObjectRequest(URL, new JSONObject(params),
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Toast.makeText(EnrollmentQuestions.this, "" + response.toString(), Toast.LENGTH_LONG).show();
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("Error", error.toString());
+                Toast.makeText(EnrollmentQuestions.this, "" + error.toString(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        RequestQueue queue = SingletonRequestQueue.getInstance(getApplicationContext()).getRequestQueue();
+        queue.add(request_json);
+    }
 
     class DisplayQuestions extends AsyncTask {
         @Override
@@ -5366,36 +5390,6 @@ public class EnrollmentQuestions extends AppCompatActivity
             progressDialog.dismiss();
 
         }
-    }
-
-    public void Networkcall_forotp()
-    {
-        otp_gen_number =  String.valueOf((int)(Math.random()*9000)+1000);
-        Log.d("value",mobile_number+" :: "+otp_gen_number);
-        System.out.println(mobile_number+" :: "+otp_gen_number);
-
-            final String URL = "http://testmmitraapi.000webhostapp.com/mMitra_API/otp";
-            HashMap<String, String> params = new HashMap<String, String>();
-            params.put("mobile_no",mobile_number);
-            params.put("otp", otp_gen_number);
-            params.put("password", "1234");
-            params.put("email", "sunny@gmail.com");
-            JsonObjectRequest request_json = new JsonObjectRequest(URL, new JSONObject(params),
-                    new Response.Listener<JSONObject>() {
-                        @Override
-                        public void onResponse(JSONObject response) {
-                            Toast.makeText(EnrollmentQuestions.this,""+response.toString(),Toast.LENGTH_LONG).show();
-                        }
-                    }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    Log.d("Error", error.toString());
-                    Toast.makeText(EnrollmentQuestions.this, ""+error.toString(), Toast.LENGTH_SHORT).show();
-                }
-            });
-
-            RequestQueue queue = SingletonRequestQueue.getInstance(getApplicationContext()).getRequestQueue();
-            queue.add(request_json);
     }
 
 
