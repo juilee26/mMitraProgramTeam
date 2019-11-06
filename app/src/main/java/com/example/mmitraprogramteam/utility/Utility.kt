@@ -37,7 +37,7 @@ class Utility {
 
     fun getLanguagePreferance(context: Context): String? {
         var prefs = context.getSharedPreferences(COMMAN_PREF_NAME, Activity.MODE_PRIVATE)
-        val lang = prefs.getString(Language, "")
+        var lang = prefs.getString(Language, "")
         return lang
     }
 

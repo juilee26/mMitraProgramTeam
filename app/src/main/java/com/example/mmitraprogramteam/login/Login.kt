@@ -135,8 +135,8 @@ class Login : AppCompatActivity(), ILoginView , View.OnClickListener {
     }
 
     override fun onClick(v: View?) {
-        edittext_username.text?.clear()
-        edittext_pass.text?.clear()
+        /*edittext_username.text?.clear()
+        edittext_pass.text?.clear()*/
 
     }
 
