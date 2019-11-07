@@ -329,7 +329,7 @@
 
     <string name="menu_home">Registration</string>
     <string name="menu_gallery">Complete visits</string>
-    <string name="menu_slideshow">Registered Women</string>
+    <string name="menu_registered_women">Registered Women</string>
     <string name="menu_tools">Update Forms</string>
     <string name="menu_share">Get Help mannual</string>
     <string name="menu_send">Restore Data</string>
@@ -341,5 +341,21 @@
     <string name="setting">settings</string>
     <string name="logout_message">Are you sure you want to logout?</string>
     <string name="no_reg">NO REGISTRATION</string>
+    <string name="title_activity_settings2">Settings</string>
+
+    <!-- Preference Titles -->
+    <string name="messages_header">Messages</string>
+    <string name="sync_header">Sync</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="reply_title">Default reply action</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Sync email periodically</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails
+    </string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
 
 </resources>

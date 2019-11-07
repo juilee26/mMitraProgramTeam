@@ -1,4 +1,4 @@
-package tech.inscripts.ins_armman.mMitra.completeforms
+package com.example.mmitraprogramteam.completeforms
 
 import android.content.Context
 import android.os.Bundle
@@ -26,7 +26,7 @@ class CompleteFormActivity : AppCompatActivity(),ICompleteFormView,CompleteForms
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_woman_list)
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
-        toolbar.setTitle("Complete Forms")
+        toolbar.setTitle(R.string.menu_registered_women)
         setSupportActionBar(toolbar)
         mProgressBar = findViewById(R.id.child_list_progress_bar)
         emptyLayout=findViewById(R.id.empty_layout)

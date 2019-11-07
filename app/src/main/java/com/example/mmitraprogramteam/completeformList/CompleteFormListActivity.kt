@@ -1,4 +1,4 @@
-package tech.inscripts.ins_armman.mMitra.completeformList
+package com.example.mmitraprogramteam.completeformList
 
 import android.content.Context
 import android.content.Intent

@@ -3,12 +3,12 @@ package com.example.mmitraprogramteam.data.service
 import android.content.Context
 import com.example.mmitraprogramteam.R
 import com.example.mmitraprogramteam.data.model.UserDetails
+import com.example.mmitraprogramteam.login.ILoginInteractor
 import okhttp3.ResponseBody
 import org.json.JSONException
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Response
-import tech.inscripts.ins_armman.mMitra.login.ILoginInteractor
 import java.io.IOException
 
 class AuthService {

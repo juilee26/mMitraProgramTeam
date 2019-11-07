@@ -6,7 +6,6 @@ import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.LayerDrawable
 import android.os.Bundle
-import android.renderscript.ScriptGroup
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
@@ -19,22 +18,28 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.viewpager.widget.PagerAdapter
 import com.example.mmitraprogramteam.R
+import com.example.mmitraprogramteam.completeforms.CompleteFormActivity
 import com.example.mmitraprogramteam.forms.EnrollmentQuestions
 import com.example.mmitraprogramteam.settingactivity.Settings
 import com.example.mmitraprogramteam.settingactivity.SettingsActivity
 import com.example.mmitraprogramteam.settingactivity.SettingsPresentor
+import com.example.mmitraprogramteam.userprofile.UserProfileActivity
 import com.example.mmitraprogramteam.utility.Utility
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_homeactivity.*
 import kotlinx.android.synthetic.main.activity_main.*
-import tech.inscripts.ins_armman.mMitra.homeactivity.IMainActivity
-import tech.inscripts.ins_armman.mMitra.homeactivity.MainActivityPresentor
+import kotlinx.android.synthetic.main.activity_main.btnReg
+import kotlinx.android.synthetic.main.activity_main.btnReports
+import kotlinx.android.synthetic.main.activity_main.btnUserProfile
+import kotlinx.android.synthetic.main.activity_main.btnWomen
+import kotlinx.android.synthetic.main.activity_main.indicator
+import kotlinx.android.synthetic.main.activity_main.viewPager
+import kotlinx.android.synthetic.main.activity_main_new_new.*
 import java.util.*
 
-class MainActivity : AppCompatActivity(),IMainActivity,NavigationView.OnNavigationItemSelectedListener,View.OnClickListener{
+class MainActivity : AppCompatActivity(), IMainActivity,NavigationView.OnNavigationItemSelectedListener,View.OnClickListener{
 
 
 
@@ -77,11 +82,13 @@ class MainActivity : AppCompatActivity(),IMainActivity,NavigationView.OnNavigati
         indicator.setupWithViewPager(viewPager, true)
 
         val timer = Timer()
-        timer.scheduleAtFixedRate(SliderTimer(), 2000, 3000)
+        timer.scheduleAtFixedRate(SliderTimer(), 4000, 6000)
         btnReg.setOnClickListener(this)
         btnWomen.setOnClickListener(this)
         btnReports.setOnClickListener(this)
         btnUserProfile.setOnClickListener(this)
+        btnLanguage.setOnClickListener(this)
+        btnUpdateForms.setOnClickListener(this)
 
     } //end of onCreate
 
@@ -92,14 +99,13 @@ class MainActivity : AppCompatActivity(),IMainActivity,NavigationView.OnNavigati
         when (v?.getId()) {
             R.id.btnReg -> startActivity(Intent(this, EnrollmentQuestions::class.java))
 
-            R.id.btnWomen -> Toast.makeText(applicationContext,"Registered Women",Toast.LENGTH_SHORT).show()
-                //startActivity(Intent(this, IncompleteFormActivity::class.java))
+            R.id.btnWomen -> startActivity(Intent(this, CompleteFormActivity::class.java))
 
             R.id.btnReports -> Toast.makeText(applicationContext,"Reports",Toast.LENGTH_SHORT).show()
-                //startActivity(Intent(this, CompleteFormActivity::class.java))
 
-            R.id.btnUserProfile -> Toast.makeText(applicationContext,"User Profile",Toast.LENGTH_SHORT).show()
-                //startActivity(Intent(this, UserProfileActivity::class.java))
+            R.id.btnUserProfile -> startActivity(Intent(this, UserProfileActivity::class.java))
+            R.id.btnLanguage -> Toast.makeText(applicationContext,"Language",Toast.LENGTH_SHORT).show()
+            R.id.btnUpdateForms -> Toast.makeText(applicationContext,"Update Forms",Toast.LENGTH_SHORT).show()
         }    }
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_home_activity, menu)

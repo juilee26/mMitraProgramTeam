@@ -1,4 +1,4 @@
-package tech.inscripts.ins_armman.mMitra.homeactivity
+package com.example.mmitraprogramteam.home
 
 import android.content.Context
 import android.content.Intent

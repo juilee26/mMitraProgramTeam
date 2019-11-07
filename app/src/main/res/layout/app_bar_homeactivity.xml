@@ -25,7 +25,7 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <include
-        layout="@layout/activity_main_new"
+        layout="@layout/activity_main_new_new"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"

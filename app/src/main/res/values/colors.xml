@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#0F6086</color>
-    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorPrimary">#8F0919</color>
+    <color name="colorPrimaryDark">#2B0409</color>
     <color name="colorAccent">#D81B60</color>
     <color name="start_color">#1D9494</color>
     <color name="middle_color">#173363</color>
@@ -31,5 +31,8 @@
     <color name="endblue">#072427</color>
     <color name="black_color">#000000</color>
     <color name="grey">#888</color>
-
+    <color name="graylight">#fafafa</color>
+    <color name="color_incomplete">#FF9800</color>
+    <color name="start_pink">#70302F</color>
+    <color name="end_pink">#3D2826</color>
 </resources>

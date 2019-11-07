@@ -1,14 +1,10 @@
-package tech.inscripts.ins_armman.mMitra.login
-
+package com.example.mmitraprogramteam.login
 import android.content.ContentValues
 import android.content.Context
 import com.example.mmitraprogramteam.data.database.DatabaseContract
 import com.example.mmitraprogramteam.data.model.UserDetails
 import com.example.mmitraprogramteam.data.retrofit.RemoteDataSource
-import com.example.mmitraprogramteam.utility.Constants
-import com.example.mmitraprogramteam.utility.Constants.AUTHENTICATION_SUCCESS
 import com.example.mmitraprogramteam.utility.Utility
-import org.json.JSONException
 import org.json.JSONObject
 
 

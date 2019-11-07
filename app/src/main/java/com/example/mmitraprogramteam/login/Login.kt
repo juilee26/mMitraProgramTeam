@@ -18,8 +18,7 @@ import com.example.mmitraprogramteam.home.MainActivity
 import com.example.mmitraprogramteam.utility.Utility
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.progress_overlay.*
-import tech.inscripts.ins_armman.mMitra.login.ILoginView
-import tech.inscripts.ins_armman.mMitra.login.LoginPresenter
+
 
 class Login : AppCompatActivity(), ILoginView , View.OnClickListener {
 

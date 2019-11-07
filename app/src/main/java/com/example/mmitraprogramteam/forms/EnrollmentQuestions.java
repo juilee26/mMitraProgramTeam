@@ -269,6 +269,7 @@ public class EnrollmentQuestions extends AppCompatActivity {
         System.out.println("created on : " + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US).format(new Date()));
 
         new DisplayQuestions().execute();
+
     }
 
     public void labelCalculation(TextView labelTextView, Label label) throws ParseException {
@@ -438,7 +439,7 @@ public class EnrollmentQuestions extends AppCompatActivity {
             Frame = (FrameLayout) findViewById(R.id.frame);
             next = (Button) findViewById(R.id.btnNext);
             previous = (Button) findViewById(R.id.btnpre);
-
+            next.setVisibility(View.GONE);
             defaultdate = new SimpleDateFormat("dd-MM-yyyy", Locale.US).format(new Date());
             dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
             serverdateFormatter = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
@@ -496,6 +497,7 @@ public class EnrollmentQuestions extends AppCompatActivity {
             int totalpagecondition = 0;
             Boolean isCompulsoryQstnInFocus = false;
             int pageno = scrollId.get(scrollcounter);
+
 
             /**
              * before going to next page check if validations field present on that page is filled or not.
@@ -562,8 +564,10 @@ public class EnrollmentQuestions extends AppCompatActivity {
              * if totalpagecondition matches with counter no. that means all the complusory questions are answered.
              */
             if (totalpagecondition == counter) {
-                previous.setVisibility(View.VISIBLE);
-
+                if(counter == 1) {
+                    previous.setVisibility(View.GONE);
+                }else
+                    previous.setVisibility(View.VISIBLE);
                 scroll_temp = (ScrollView) Frame.findViewById(scrollId.get(scrollcounter));
                 scroll_temp.setVisibility(View.INVISIBLE);
 
@@ -1709,7 +1713,8 @@ public class EnrollmentQuestions extends AppCompatActivity {
                     }*/
                     if (keyword.equalsIgnoreCase("otp")) {
                         if (otp_gen_number.equalsIgnoreCase(otp_submited)) {
-                            NextButtonValidations();
+                           // NextButtonValidations();
+                            next.setVisibility(View.VISIBLE);
                         } else {
                             Toast.makeText(EnrollmentQuestions.this, "OTP is Not Matched", Toast.LENGTH_SHORT).show();
                         }
@@ -4696,15 +4701,14 @@ public class EnrollmentQuestions extends AppCompatActivity {
      * This method is used to exit from the current page
      */
     public void backForm() {
-        androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(EnrollmentQuestions.this);
+        androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(ctx);
         builder
-                .setTitle(EnrollmentQuestions.this.getString(R.string.back_form))
-                .setMessage(EnrollmentQuestions.this.getString(R.string.back_form_message))
+                .setTitle(ctx.getString(R.string.back_form))
+                .setMessage(ctx.getString(R.string.back_form_message))
                 .setIcon(R.mipmap.ic_exitalert)
-                .setPositiveButton(EnrollmentQuestions.this.getString(R.string.yes), new DialogInterface.OnClickListener() {
+                .setPositiveButton("yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-
                         try {
                             woman_gest_age = null;
                             expec_date = null;
@@ -4715,16 +4719,14 @@ public class EnrollmentQuestions extends AppCompatActivity {
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
                     }
                 })
-                .setNegativeButton(EnrollmentQuestions.this.getString(R.string.no), new DialogInterface.OnClickListener() {
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
                     }
                 }).show();
-
     }
 
     @Override

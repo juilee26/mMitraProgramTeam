@@ -1,4 +1,4 @@
-package tech.inscripts.ins_armman.mMitra.completeformsdetails
+package com.example.mmitraprogramteam.completeformsdetails
 
 import android.content.Context
 import android.database.Cursor
