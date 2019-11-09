@@ -332,4 +332,9 @@
     <string name="setting">सेटिंग्स</string>
     <string name="logout_message">क्या आप लॉग आउट करना चाहते हैं?</string>
     <string name="no_reg">कोई पंजीकरण नहीं</string>
+    <string name="phone_que">कृपया वह मोबाइल नंबर दर्ज करें जिसे आप सत्यापित करना चाहते हैं:</string>
+    <string name="otp_verfy">मोबाइल फोन सत्यापित करें...</string>
+    <string name="otp_timer_val">ओटीपी दर्ज करने के लिए शेष समय -</string>
+
+
 </resources>

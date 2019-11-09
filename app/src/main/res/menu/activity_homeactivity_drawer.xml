@@ -39,4 +39,15 @@
         </menu>
     </item>
 
+    <item android:title="@string/version">
+        <menu>
+
+            <item
+                android:id="@+id/version"
+                android:icon="@drawable/ic_update_form"
+                android:title="" />
+
+        </menu>
+    </item>
+
 </menu>

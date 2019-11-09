@@ -62,8 +62,7 @@
     <string name="counselling_msg_txt">Counselling Message</string>
     <string name="back_form">Exit Form</string>
     <string name="back_form_message">Do you want to exit?</string>
-    <string name="sync_forms_message">Please sync forms from settings \nPress OK button to exit
-    </string>
+    <string name="sync_forms_message">Please sync forms from settings \nPress OK button to exit</string>
     <string name="title_data_not_found">Data not found</string>
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
@@ -357,5 +356,7 @@
     <string name="attachment_summary_on">Automatically download attachments for incoming emails
     </string>
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
-
+<string name="phone_que">Please enter the mobile number you want to verify</string>
+<string name="otp_verfy">Verify device</string>
+    <string name="otp_timer_val">Enter the OTP in -</string>
 </resources>

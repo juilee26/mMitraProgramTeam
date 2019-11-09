@@ -55,6 +55,8 @@
         <activity
             android:name=".userprofile.UserProfileActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+    <activity android:name=".otpmodule.OTPActivity"
+        android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>

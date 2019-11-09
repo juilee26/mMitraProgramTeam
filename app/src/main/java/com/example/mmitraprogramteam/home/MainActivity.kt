@@ -4,12 +4,10 @@ import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Color
+import android.graphics.PorterDuff
 import android.graphics.drawable.LayerDrawable
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.Menu
-import android.view.MenuItem
-import android.view.View
+import android.view.*
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -17,10 +15,12 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
+import androidx.core.view.MotionEventCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.example.mmitraprogramteam.R
 import com.example.mmitraprogramteam.completeforms.CompleteFormActivity
 import com.example.mmitraprogramteam.forms.EnrollmentQuestions
+import com.example.mmitraprogramteam.otpmodule.OTPActivity
 import com.example.mmitraprogramteam.settingactivity.Settings
 import com.example.mmitraprogramteam.settingactivity.SettingsActivity
 import com.example.mmitraprogramteam.settingactivity.SettingsPresentor
@@ -29,17 +29,15 @@ import com.example.mmitraprogramteam.utility.Utility
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_homeactivity.*
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.btnReg
 import kotlinx.android.synthetic.main.activity_main.btnReports
-import kotlinx.android.synthetic.main.activity_main.btnUserProfile
 import kotlinx.android.synthetic.main.activity_main.btnWomen
 import kotlinx.android.synthetic.main.activity_main.indicator
 import kotlinx.android.synthetic.main.activity_main.viewPager
-import kotlinx.android.synthetic.main.activity_main_new_new.*
+import kotlinx.android.synthetic.main.activity_main_buttons.*
 import java.util.*
 
-class MainActivity : AppCompatActivity(), IMainActivity,NavigationView.OnNavigationItemSelectedListener,View.OnClickListener{
+class MainActivity : AppCompatActivity(), IMainActivity,NavigationView.OnNavigationItemSelectedListener,View.OnClickListener,View.OnTouchListener{
 
 
 
@@ -68,6 +66,10 @@ class MainActivity : AppCompatActivity(), IMainActivity,NavigationView.OnNavigat
         nav_view.setNavigationItemSelectedListener(this)
         var navigationView : NavigationView = findViewById(R.id.nav_view)
         navigationView?.setNavigationItemSelectedListener(this)
+
+        var menu : Menu =navigationView.menu
+        var version : MenuItem = menu.findItem(R.id.version)
+        version.title = utility.getAppVersionName(this)
         var header : View = navigationView!!.getHeaderView(0)
         var textUserName : TextView = header.findViewById(R.id.navUserName)
         textUserName.text="USER"
@@ -86,9 +88,9 @@ class MainActivity : AppCompatActivity(), IMainActivity,NavigationView.OnNavigat
         btnReg.setOnClickListener(this)
         btnWomen.setOnClickListener(this)
         btnReports.setOnClickListener(this)
-        btnUserProfile.setOnClickListener(this)
         btnLanguage.setOnClickListener(this)
         btnUpdateForms.setOnClickListener(this)
+
 
     } //end of onCreate
 
@@ -97,7 +99,7 @@ class MainActivity : AppCompatActivity(), IMainActivity,NavigationView.OnNavigat
 
     override fun onClick(v: View?) {
         when (v?.getId()) {
-            R.id.btnReg -> startActivity(Intent(this, EnrollmentQuestions::class.java))
+            R.id.btnReg -> startActivity(Intent(this, OTPActivity::class.java))
 
             R.id.btnWomen -> startActivity(Intent(this, CompleteFormActivity::class.java))
 
@@ -107,6 +109,23 @@ class MainActivity : AppCompatActivity(), IMainActivity,NavigationView.OnNavigat
             R.id.btnLanguage -> Toast.makeText(applicationContext,"Language",Toast.LENGTH_SHORT).show()
             R.id.btnUpdateForms -> Toast.makeText(applicationContext,"Update Forms",Toast.LENGTH_SHORT).show()
         }    }
+
+    override fun onTouch(v: View?, event: MotionEvent?): Boolean {
+        when (event?.action){
+            MotionEventCompat.ACTION_POINTER_DOWN ->{
+                v?.background?.setColorFilter(0x77000000, PorterDuff.Mode.SRC_ATOP)
+            v?.invalidate()
+            }
+            MotionEventCompat.ACTION_POINTER_UP ->{
+                v?.background?.clearColorFilter()
+                v?.invalidate()
+            }
+        }
+return true
+
+    }
+
+
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_home_activity, menu)
         val item = menu?.findItem(R.id.action_sync)

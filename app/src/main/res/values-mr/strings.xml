@@ -328,4 +328,8 @@
     <string name="setting">सेटिंग्ज</string>
     <string name="logout_message">आपली खात्री आहे की आपण लॉगआउट करू इच्छिता?</string>
     <string name="no_reg">नोंदणी नाही</string>
+    <string name = "phone_que"> कृपया आपण सत्यापित करू इच्छित मोबाइल नंबर प्रविष्ट करा: </string>
+    <string name="otp_verfy">मोबाइल फोन सत्यापित करा...</string>
+    <string name="otp_timer_val">ओ.टी.पी. प्रविष्ट करण्यासाठी उर्वरित वेळ-</string>
+
 </resources>
