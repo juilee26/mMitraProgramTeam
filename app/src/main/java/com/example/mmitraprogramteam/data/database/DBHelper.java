@@ -288,7 +288,7 @@ return  formId;
                 " left join main_questions as mq on mq.keyword = qa.question_keyword" +
                 " left join question_options as qo on qo.keyword = qa.answer_keyword" +
                 " where qa.unique_id='"+unique_id+"'" +
-                " and qa.form_id="+Form_id+" group by(qa.question_keyword)",null);
+                " group by(qa.question_keyword)",null);
     }
 
     public List getAnswerLabel(List<String> ansArray){

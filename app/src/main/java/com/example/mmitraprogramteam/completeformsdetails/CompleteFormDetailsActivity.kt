@@ -33,7 +33,7 @@ class CompleteFormDetailsActivity : AppCompatActivity(), ICompleteFormsDetailsVi
         var linearLayoutManager = LinearLayoutManager(this@CompleteFormDetailsActivity)
         recyclerView.layoutManager = linearLayoutManager
         recyclerView.itemAnimator = DefaultItemAnimator()
-        unique_id = intent.getStringExtra("unique_id")
+        unique_id = intent.getStringExtra("id")
         form_id = intent.getIntExtra("form_id", 0)
         presentor.displayFIlledForm(unique_id, form_id)
     }

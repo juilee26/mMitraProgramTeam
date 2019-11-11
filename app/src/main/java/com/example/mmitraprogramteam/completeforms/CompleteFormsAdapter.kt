@@ -10,6 +10,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mmitraprogramteam.R
 import com.example.mmitraprogramteam.completeformList.CompleteFormListActivity
+import com.example.mmitraprogramteam.completeformsdetails.CompleteFormDetailsActivity
 import com.example.mmitraprogramteam.data.model.completeFilledForm
 
 class CompleteFormsAdapter() : RecyclerView.Adapter<CompleteFormsAdapter.ViewHolder>() {
@@ -65,12 +66,14 @@ class CompleteFormsAdapter() : RecyclerView.Adapter<CompleteFormsAdapter.ViewHol
         }
 
          override fun onClick(v: View) {
-             val intent = Intent(mContext, CompleteFormListActivity::class.java)
+             val intent = Intent(mContext, CompleteFormDetailsActivity::class.java)
              if (clickListener != null) {
                  clickListener?.itemClicked(v, position)
                  val i = mWomenList?.size
-                 intent.putExtra("id", mWomenList?.get(position)?.unique_id)
-                 intent.putExtra("firstName", mWomenList?.get(position)?.name)
+                 var unique_id = mWomenList?.get(position)?.unique_id
+                 var name = mWomenList?.get(position)?.name
+                 intent.putExtra("id",unique_id)
+                 intent.putExtra("firstName", name)
              }
              mContext?.startActivity(intent)
          }
