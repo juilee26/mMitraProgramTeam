@@ -7,6 +7,8 @@ import android.graphics.Color
 import android.graphics.PorterDuff
 import android.graphics.drawable.LayerDrawable
 import android.os.Bundle
+import android.preference.ListPreference
+import android.preference.Preference
 import android.view.*
 import android.widget.TextView
 import android.widget.Toast
@@ -48,7 +50,7 @@ class MainActivity : AppCompatActivity(), IMainActivity,NavigationView.OnNavigat
     var mSyncDrawable: LayerDrawable? = null
     var mProgressDialog: AlertDialog? = null
     var settingsPresentor : SettingsPresentor?=null
-
+    var listPreference : ListPreference? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -107,7 +109,7 @@ class MainActivity : AppCompatActivity(), IMainActivity,NavigationView.OnNavigat
             R.id.btnReports -> Toast.makeText(applicationContext,"Reports",Toast.LENGTH_SHORT).show()
 
             R.id.btnUserProfile -> startActivity(Intent(this, UserProfileActivity::class.java))
-            R.id.btnLanguage -> Toast.makeText(applicationContext,"Language",Toast.LENGTH_SHORT).show()
+            R.id.btnLanguage -> lang()
             R.id.btnUpdateForms -> Toast.makeText(applicationContext,"Update Forms",Toast.LENGTH_SHORT).show()
         }    }
 
@@ -126,6 +128,13 @@ return true
 
     }
 
+
+    fun lang()
+    {
+        utility.setApplicationLocale(applicationContext, "hi")
+        super.recreate()
+            true
+    }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_home_activity, menu)

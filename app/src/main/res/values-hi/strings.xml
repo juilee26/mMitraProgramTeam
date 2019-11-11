@@ -339,6 +339,10 @@
     <string name="exit_otp_message">हाँ बटन दबाने से उपकरण सत्यापन रद्द हो जाएगा । क्या आप सुनिश्चित हैं?</string>
     <string name="mobile_no_error"> कृपया सत्यापित करने के लिए वैध मोबाइल नंबर दर्ज करे</string>
 
-
+    <string name="Registration_label"> पंजीकरण </string>
+    <string name="Records"> रिकॉर्ड्स </string>
+    <string name="Language"> भाषा </string>
+    <string name="Update_forms"> अद्यतन प्रपत्र</string>
+    <string name="Reports">रिपोर्ट </string>
 
 </resources>

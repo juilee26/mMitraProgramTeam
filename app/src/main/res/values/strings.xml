@@ -362,4 +362,10 @@
     <string name="exit_otp_title">Cancel Device Verification</string>
     <string name="exit_otp_message">Pressing YES button will cancel device verification./n Are you sure?</string>
     <string name="mobile_no_error"> Please enter valid mobile number to verify</string>
+
+    <string name="Registration_label"> REGISTRATION </string>
+    <string name="Records"> RECORDS </string>
+    <string name="Language"> Language </string>
+    <string name="Update_forms"> Update forms</string>
+    <string name="Reports"> Reports </string>
 </resources>
