@@ -439,7 +439,6 @@ public class EnrollmentQuestions extends AppCompatActivity {
             Frame = (FrameLayout) findViewById(R.id.frame);
             next = (Button) findViewById(R.id.btnNext);
             previous = (Button) findViewById(R.id.btnpre);
-            next.setVisibility(View.GONE);
             defaultdate = new SimpleDateFormat("dd-MM-yyyy", Locale.US).format(new Date());
             dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
             serverdateFormatter = new SimpleDateFormat("yyyy-MM-dd", Locale.US);

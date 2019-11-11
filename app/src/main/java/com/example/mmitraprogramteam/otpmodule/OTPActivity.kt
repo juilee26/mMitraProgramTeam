@@ -1,5 +1,5 @@
 package com.example.mmitraprogramteam.otpmodule
-
+import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
 import androidx.appcompat.app.AppCompatActivity
@@ -10,18 +10,24 @@ import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import com.android.volley.Response
-import com.android.volley.VolleyError
 import com.android.volley.toolbox.JsonObjectRequest
-import com.example.mmitraprogramteam.R
 import com.example.mmitraprogramteam.data.volley.SingletonRequestQueue
+import com.example.mmitraprogramteam.home.MainActivity
 import kotlinx.android.synthetic.main.activity_opt_screen.*
 import org.json.JSONObject
 import java.util.HashMap
-import java.util.concurrent.TimeUnit
+import android.content.Context
+import android.content.res.ColorStateList
+import android.graphics.Color
+import android.view.inputmethod.InputMethodManager
+import com.example.mmitraprogramteam.R
+import com.example.mmitraprogramteam.data.database.DBHelper
+import com.example.mmitraprogramteam.forms.EnrollmentQuestions
 
 
-class OTPActivity() : AppCompatActivity(),View.OnClickListener{
+class OTPActivity() : AppCompatActivity(),IOTPView,View.OnClickListener{
 
     var mobile_number: String =""
     var otp_gen_number:String=""
@@ -35,11 +41,19 @@ class OTPActivity() : AppCompatActivity(),View.OnClickListener{
     val TIMER_TIME_MILLS : Long =300000
     var mTimeLeftInMills = TIMER_TIME_MILLS
     lateinit var anim : Animation
+    var username = ""
+    var password = "'"
+    var dbHelper = DBHelper(this)
+    internal lateinit var presentor : OTPPresenter
+    var userDetail :ArrayList<String>?=null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_opt_screen)
+
+        presentor = OTPPresenter()
+        presentor.attachView(this)
 
         digit1.addTextChangedListener(GenericTextWatcher(digit1))
         digit2.addTextChangedListener(GenericTextWatcher(digit2))
@@ -48,39 +62,60 @@ class OTPActivity() : AppCompatActivity(),View.OnClickListener{
 
         btnSendOtp.setOnClickListener(this)
         btnNext.setOnClickListener(this)
-//declare animation
+
+        //declare animation
         anim = AnimationUtils.loadAnimation(this, R.anim.fade_in_effect)
+
+        //get userDetails from db
+        fetchUserDetails()
+
+
 
     }
 
+    override fun fetchUserDetails() {
+       /* userDetail = presentor.getUserDetails()
+        username = userDetail!![0]
+        password= userDetail!![1]
+   */ }
+
     override fun onClick(v: View?) {
 
-        object :CountDownTimer(mTimeLeftInMills,1000){
-            override fun onFinish() {
-                btnSendOtp.text ="RESEND OTP"
-                txtTimerValue.visibility = View.GONE
+        when(v?.id){
+            R.id.btnSendOtp->{
+               validateMobileNo()
+                hideKeyboard()
+                object :CountDownTimer(mTimeLeftInMills,1000){
+                    override fun onFinish() {
+                        btnSendOtp.text ="RESEND OTP"
+                        txtTimerValue.visibility = View.GONE
+                    }
+
+                    override fun onTick(millisUntilFinished: Long) {
+                        mTimeLeftInMills= millisUntilFinished
+                        min = (mTimeLeftInMills.toInt()/(1000*60))%60
+                        sec =  mTimeLeftInMills.toInt()/1000%60
+                        var time = String.format("%02d:%02d",min,sec)
+                        var timer  = resources.getString(R.string.otp_timer_val)+time
+                        txtTimerValue.text = timer
+
+
+                    }
+                }.start()
+
             }
 
-            override fun onTick(millisUntilFinished: Long) {
-              mTimeLeftInMills= millisUntilFinished
-               min = (mTimeLeftInMills.toInt()/(1000*60))%60
-                sec =  mTimeLeftInMills.toInt()/1000%60
-                /* min = TimeUnit.MILLISECONDS.toMinutes(mTimeLeftInMills).toInt()
-                sec = TimeUnit.MILLISECONDS.toSeconds(mTimeLeftInMills).toInt()
-                          - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(mTimeLeftInMills)).toInt()
-               */ var time = String.format("%02d:%02d",min,sec)
-                var timer  = resources.getString(R.string.otp_timer_val)+time
-                txtTimerValue.text = timer
-
-
+            R.id.btnNext ->{
+                val intent = Intent(this@OTPActivity, EnrollmentQuestions::class.java)
+                startActivity(intent)
             }
-        }.start()
+        }
 
-        networkCallForOTP()
     }
 
 
     fun networkCallForOTP() {
+
         mobile_number = edit_mobile_number.text.toString()
         otp_gen_number = ((Math.random() * 9000).toInt() + 1000).toString()
         Log.d("value", mobile_number + " :: " + otp_gen_number)
@@ -127,6 +162,9 @@ class OTPActivity() : AppCompatActivity(),View.OnClickListener{
                 R.id.digit4 -> if (text.isEmpty())
                     digit3.requestFocus()
                 else{
+                    if(text.length==1){
+                        hideKeyboard()
+                    }
                     val1=digit1.text.toString()
                     val2=digit2.text.toString()
                     val3=digit3.text.toString()
@@ -164,8 +202,74 @@ class OTPActivity() : AppCompatActivity(),View.OnClickListener{
         }
 
         override fun onTextChanged(arg0: CharSequence, arg1: Int, arg2: Int, arg3: Int) {
-            // TODO Auto-generated method stub
         }
+
+    }
+
+    fun hideKeyboard() {
+        val inputManager:InputMethodManager =getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputManager.hideSoftInputFromWindow(currentFocus?.windowToken, InputMethodManager.SHOW_FORCED)
+    }
+
+    override fun validateMobileNo() {
+        edit_mobile_number.setOnFocusChangeListener { v, hasFocus ->
+            if(hasFocus){
+                inputMobileNo.setErrorTextColor(ColorStateList.valueOf(Color.GRAY))
+            }
+        }
+
+        mobile_number = edit_mobile_number.text.toString()
+        if(mobile_number.isEmpty() || mobile_number.length!=10){
+            inputMobileNo.error = getString(R.string.mobile_no_error)
+            txtTimerValue.visibility=View.GONE
+        }
+        else if(mobile_number.length==10){
+            inputMobileNo.setErrorTextColor(ColorStateList.valueOf(Color.GRAY))
+            hideKeyboard()
+            networkCallForOTP()
+            txtTimerValue.visibility= View.VISIBLE
+        }
+    }
+
+    override fun getContext(): Context {
+return this
+    }
+
+    override fun openNextActivity() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun setAuthenticationFailedError() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun showProgressBar() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun hideProgressBar() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun onBackPressed() {
+        val builder = AlertDialog.Builder(this)
+        builder
+            .setTitle(this.getString(R.string.exit_otp_title))
+            .setMessage(this.getString(R.string.exit_otp_message))
+            .setIcon(R.mipmap.ic_exitalert)
+            .setPositiveButton(R.string.yes) { dialog, which ->
+                try {
+                    val intent = Intent(this@OTPActivity, MainActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+            }
+            .setNegativeButton(R.string.no) { dialog, which ->
+
+            }.show()
+
 
     }
 }

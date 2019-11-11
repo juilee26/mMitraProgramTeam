@@ -74,11 +74,11 @@ class Login : AppCompatActivity(), ILoginView , View.OnClickListener {
 
     override fun setUsernameError() {
         textinputlayout_password.setErrorTextColor(ColorStateList.valueOf(Color.WHITE))
-        textinputlayout_username.error = getString(com.example.mmitraprogramteam.R.string.enter_username)
+        textinputlayout_username.error = getString(R.string.enter_username)
     }
 
     override fun setPasswordError() {
-        textinputlayout_password?.error= getString(com.example.mmitraprogramteam.R.string.enter_password)
+        textinputlayout_password?.error= getString(R.string.enter_password)
     }
 
     override fun resetErrorMsg() {
@@ -117,7 +117,7 @@ class Login : AppCompatActivity(), ILoginView , View.OnClickListener {
 
     override fun setAuthenticationFailedError() {
         edittext_pass.setText("")
-        textinputlayout_password.setError(getString(R.string.authentication_error_msg))
+        textinputlayout_password.error = getString(R.string.authentication_error_msg)
     }
 
     override fun getContext(): Context {

@@ -333,8 +333,12 @@
     <string name="logout_message">क्या आप लॉग आउट करना चाहते हैं?</string>
     <string name="no_reg">कोई पंजीकरण नहीं</string>
     <string name="phone_que">कृपया वह मोबाइल नंबर दर्ज करें जिसे आप सत्यापित करना चाहते हैं:</string>
-    <string name="otp_verfy">मोबाइल फोन सत्यापित करें...</string>
+    <string name="otp_verfy">मोबाइल फोन सत्यापित करें…</string>
     <string name="otp_timer_val">ओटीपी दर्ज करने के लिए शेष समय -</string>
+    <string name="exit_otp_title">डिवाइस सत्यापन रद्द करे</string>
+    <string name="exit_otp_message">हाँ बटन दबाने से उपकरण सत्यापन रद्द हो जाएगा । क्या आप सुनिश्चित हैं?</string>
+    <string name="mobile_no_error"> कृपया सत्यापित करने के लिए वैध मोबाइल नंबर दर्ज करे</string>
+
 
 
 </resources>

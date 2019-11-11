@@ -44,4 +44,6 @@
     <color name="middle_color_pressed">#173363</color>
     <color name="end_color_pressed">#493272</color>
     <color name="gray_transperant">#5BC6C6CA</color>
+    <color name="home_big_button_bg_color">#5BF5D398</color>
+    <color name="big_button_card_bg">#5BF3EFDF</color>
 </resources>

@@ -329,7 +329,11 @@
     <string name="logout_message">आपली खात्री आहे की आपण लॉगआउट करू इच्छिता?</string>
     <string name="no_reg">नोंदणी नाही</string>
     <string name = "phone_que"> कृपया आपण सत्यापित करू इच्छित मोबाइल नंबर प्रविष्ट करा: </string>
-    <string name="otp_verfy">मोबाइल फोन सत्यापित करा...</string>
+    <string name="otp_verfy">मोबाइल फोन सत्यापित करा…</string>
     <string name="otp_timer_val">ओ.टी.पी. प्रविष्ट करण्यासाठी उर्वरित वेळ-</string>
+    <string name="exit_otp_title">डिवाइस सत्यापन रद्द करा</string>
+    <string name="exit_otp_message">होय बटण दाबल्याने डिव्हाइस सत्यापन रद्द होईल. /n आपल्याला खात्री आहे?</string>
+    <string name="mobile_no_error"> कृपया सत्यापित करण्यासाठी वैध मोबाइल नंबर प्रविष्ट करा</string> ं
+
 
 </resources>

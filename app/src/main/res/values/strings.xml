@@ -359,4 +359,7 @@
 <string name="phone_que">Please enter the mobile number you want to verify</string>
 <string name="otp_verfy">Verify device</string>
     <string name="otp_timer_val">Enter the OTP in -</string>
+    <string name="exit_otp_title">Cancel Device Verification</string>
+    <string name="exit_otp_message">Pressing YES button will cancel device verification./n Are you sure?</string>
+    <string name="mobile_no_error"> Please enter valid mobile number to verify</string>
 </resources>

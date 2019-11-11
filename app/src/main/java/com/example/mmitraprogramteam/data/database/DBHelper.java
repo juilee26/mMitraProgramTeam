@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.example.mmitraprogramteam.login.Login;
 import com.example.mmitraprogramteam.utility.Utility;
 
 import java.io.File;
@@ -206,8 +207,11 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     public Cursor fetchUserDetails() {
-        String query = "SELECT name,phone_no FROM " + LoginTable.TABLE_NAME;
-        return utility.getDatabase().rawQuery(query, null);
+        String uname = "";
+        String pswd = "";
+        String query = "SELECT "+LoginTable.COLUMN_USERNAME+" , "+ LoginTable.COLUMN_PASSWORD +" FROM " + LoginTable.TABLE_NAME;
+        Cursor cur=utility.getDatabase().rawQuery(query, null);
+        return cur;
     }
 
     public Cursor getcompleteFormListList() {
