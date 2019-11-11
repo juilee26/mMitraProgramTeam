@@ -12,17 +12,17 @@ import com.google.gson.annotations.SerializedName
     //private var imei: ArrayList<String>? = null
     private var imei: String = ""
 
-    /*@SerializedName("showdata")
-    private var showdata: String? = null*/
+    @SerializedName("showdata")
+    private var showdata: String? = null
 
      @SerializedName("userId")
      private var userId: String? = null
 
 
-    /*fun setShowdata(showdata: String) {
+    fun setShowdata(showdata: String) {
         this.showdata = showdata
     }
-*/
+
 
     /*fun setImei(imei: ArrayList<String>?) {
         this.imei = imei

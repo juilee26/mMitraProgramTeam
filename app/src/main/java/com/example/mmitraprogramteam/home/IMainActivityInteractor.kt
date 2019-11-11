@@ -1,5 +1,6 @@
 package com.example.mmitraprogramteam.home
 
+import android.content.Context
 import android.database.Cursor
 import com.example.mmitraprogramteam.data.model.RequestFormModel
 import com.example.mmitraprogramteam.data.model.SyncRegistrationDetails
@@ -14,6 +15,7 @@ import org.json.JSONObject
 import java.util.ArrayList
 
 interface IMainActivityInteractor  {
+    fun changeLocale(context: Context, language: String)
     fun getLoginDetails() :Cursor
      fun fetchLoginDetails(id: Int)
       fun fetchRegistrationDetails(id: Int)

@@ -896,4 +896,7 @@ throw IllegalArgumentException("Invalid unique &/ formId")
         }
     }
 
+    override fun changeLocale(context: Context, language: String) {
+        utility.setApplicationLocale(context, language)
+    }
 }
