@@ -1,5 +1,4 @@
-package tech.inscripts.ins_armman.mMitra.login
-
+package com.example.mmitraprogramteam.login
 import android.Manifest
 import android.app.Activity
 import android.content.pm.PackageManager

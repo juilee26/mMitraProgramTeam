@@ -1,5 +1,4 @@
-package tech.inscripts.ins_armman.mMitra.completeformList
-
+package com.example.mmitraprogramteam.completeformList
 import android.database.Cursor
 
 interface ICompleteFormListInteractor {

@@ -9,7 +9,7 @@
         <item
                 android:id="@+id/nav_complete"
                 android:icon="@drawable/ic_complete"
-                android:title="@string/menu_slideshow"/>
+                android:title="@string/menu_registered_women"/>
 
     </group>
 
@@ -36,6 +36,17 @@
                     android:id="@+id/nav_logout"
                     android:icon="@drawable/ic_logout"
                     android:title="@string/menu_logout"/>
+        </menu>
+    </item>
+
+    <item android:title="@string/version">
+        <menu>
+
+            <item
+                android:id="@+id/version"
+                android:icon="@drawable/ic_update_form"
+                android:title="" />
+
         </menu>
     </item>
 

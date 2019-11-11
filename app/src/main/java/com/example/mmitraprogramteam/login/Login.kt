@@ -18,8 +18,7 @@ import com.example.mmitraprogramteam.home.MainActivity
 import com.example.mmitraprogramteam.utility.Utility
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.progress_overlay.*
-import tech.inscripts.ins_armman.mMitra.login.ILoginView
-import tech.inscripts.ins_armman.mMitra.login.LoginPresenter
+
 
 class Login : AppCompatActivity(), ILoginView , View.OnClickListener {
 
@@ -75,11 +74,11 @@ class Login : AppCompatActivity(), ILoginView , View.OnClickListener {
 
     override fun setUsernameError() {
         textinputlayout_password.setErrorTextColor(ColorStateList.valueOf(Color.WHITE))
-        textinputlayout_username.error = getString(com.example.mmitraprogramteam.R.string.enter_username)
+        textinputlayout_username.error = getString(R.string.enter_username)
     }
 
     override fun setPasswordError() {
-        textinputlayout_password?.error= getString(com.example.mmitraprogramteam.R.string.enter_password)
+        textinputlayout_password?.error= getString(R.string.enter_password)
     }
 
     override fun resetErrorMsg() {
@@ -118,7 +117,7 @@ class Login : AppCompatActivity(), ILoginView , View.OnClickListener {
 
     override fun setAuthenticationFailedError() {
         edittext_pass.setText("")
-        textinputlayout_password.setError(getString(R.string.authentication_error_msg))
+        textinputlayout_password.error = getString(R.string.authentication_error_msg)
     }
 
     override fun getContext(): Context {

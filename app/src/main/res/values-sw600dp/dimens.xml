@@ -85,5 +85,7 @@
     <dimen name="Info_status_bar_padding">8dp</dimen>
     <dimen name="Info_layout_constraintHeight_percent">0.1</dimen>
     <dimen name="Info_layout_constrainHeight_forms">0.6</dimen>
+    <dimen name="preference_seekbar_padding_end">200dp</dimen>
+    <dimen name="preference_seekbar_value_width">2dp</dimen>
 
 </resources>

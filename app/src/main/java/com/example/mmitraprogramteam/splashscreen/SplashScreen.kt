@@ -17,11 +17,12 @@ class SplashScreen : AppCompatActivity(){
 
         //declare animation
         val anim = AnimationUtils.loadAnimation(this,
-            R.anim.splash_screen_efffect
+            R.anim.splash_screen_bounce_efffect
         )
         val imageView : ImageView = findViewById(R.id.logoImage)
 
-        imageView.startAnimation(anim)
+      //set animation
+          imageView.startAnimation(anim)
         Timer().schedule(1000)
         {
             startActivity(Intent(this@SplashScreen, Login::class.java))

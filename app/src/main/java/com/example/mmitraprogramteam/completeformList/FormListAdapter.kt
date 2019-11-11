@@ -1,5 +1,4 @@
-package tech.inscripts.ins_armman.mMitra.completeformList
-
+package com.example.mmitraprogramteam.completeformList
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
@@ -8,11 +7,11 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mmitraprogramteam.R
+import com.example.mmitraprogramteam.completeformsdetails.CompleteFormDetailsActivity
 import com.example.mmitraprogramteam.data.model.CompleteFormQnA
 import com.example.mmitraprogramteam.utility.Utility
 import org.json.JSONException
 import org.json.JSONObject
-import tech.inscripts.ins_armman.mMitra.completeformsdetails.CompleteFormDetailsActivity
 
 class FormListAdapter() : RecyclerView.Adapter<FormListAdapter.ViewHolder>() {
 

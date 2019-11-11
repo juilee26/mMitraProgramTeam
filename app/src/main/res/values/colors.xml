@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#0F6086</color>
-    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorPrimary">#8F0919</color>
+    <color name="colorPrimaryDark">#2B0409</color>
     <color name="colorAccent">#D81B60</color>
-    <color name="start_color">#1D9494</color>
+    <color name="start_color">#2DA3A3</color>
     <color name="middle_color">#173363</color>
     <color name="end_color">#6A47A5</color>
     <color name="transperant_color">#C41E3246</color>
@@ -31,5 +31,19 @@
     <color name="endblue">#072427</color>
     <color name="black_color">#000000</color>
     <color name="grey">#888</color>
-
+    <color name="graylight">#fafafa</color>
+    <color name="color_incomplete">#FF9800</color>
+    <color name="start_pink">#CC4644</color>
+    <color name="end_pink">#221715</color>
+    <color name="button_bg_transperant">#E4B1B9C0</color>
+    <color name="button_bg_transperant1">#E4E9EEEE</color>
+    <color name="opt_bg_start">#E4F17272</color>
+    <color name="opt_bg_middle">#E4D5BBBB</color>
+    <color name="opt_bg_end">#FFFF</color>
+    <color name="start_color_pressed">#166F6F</color>
+    <color name="middle_color_pressed">#173363</color>
+    <color name="end_color_pressed">#493272</color>
+    <color name="gray_transperant">#5BC6C6CA</color>
+    <color name="home_big_button_bg_color">#5BF5D398</color>
+    <color name="big_button_card_bg">#5BF3EFDF</color>
 </resources>

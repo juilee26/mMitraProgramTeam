@@ -1,4 +1,4 @@
-package tech.inscripts.ins_armman.mMitra.completeforms
+package com.example.mmitraprogramteam.completeforms
 
 import android.content.Context
 import android.content.Intent
@@ -9,8 +9,8 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mmitraprogramteam.R
+import com.example.mmitraprogramteam.completeformList.CompleteFormListActivity
 import com.example.mmitraprogramteam.data.model.completeFilledForm
-import tech.inscripts.ins_armman.mMitra.completeformList.CompleteFormListActivity
 
 class CompleteFormsAdapter() : RecyclerView.Adapter<CompleteFormsAdapter.ViewHolder>() {
 

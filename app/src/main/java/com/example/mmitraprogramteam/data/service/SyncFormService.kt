@@ -3,12 +3,12 @@ package com.example.mmitraprogramteam.data.service
 import android.content.Context
 import com.example.mmitraprogramteam.R
 import com.example.mmitraprogramteam.data.model.syncing.FormDetails
+import com.example.mmitraprogramteam.home.IMainActivityInteractor
 import okhttp3.ResponseBody
 import org.json.JSONException
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Response
-import tech.inscripts.ins_armman.mMitra.homeactivity.IMainActivityInteractor
 import java.io.IOException
 
 class SyncFormService {

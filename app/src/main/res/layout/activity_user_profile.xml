@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent" xmlns:tools="http://schemas.android.com/tools"
+              tools:context=".userprofile.UserProfileActivity"
+android:background="@color/graylight"
+android:orientation="vertical">
+
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="405dp">
+
+        <LinearLayout android:layout_width="match_parent" android:layout_height="305dp"
+                      android:orientation="vertical"    android:background="@drawable/gradient_background">
+
+            <ImageView android:layout_width="192dp" android:layout_height="182dp" android:layout_marginTop="35dp"
+                       android:layout_gravity="center_horizontal" android:src="@drawable/ic_person"/>
+
+            <TextView android:id="@+id/textUserName" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:layout_gravity="center_horizontal" android:layout_marginTop="10dp"
+                      android:text="text_user" android:textColor="#fff" android:textStyle="bold" android:textSize="28dp"/>
+        </LinearLayout>
+        <androidx.cardview.widget.CardView
+        android:layout_width="400dp" android:layout_height="120dp"
+        android:layout_centerHorizontal="true" android:layout_marginTop="275dp">
+<LinearLayout android:layout_width="match_parent" android:layout_height="match_parent"
+android:orientation="vertical">
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="20dp"
+              android:text="@string/tot_registration"
+              android:layout_gravity="center_horizontal" android:textSize="30sp"/>
+    <TextView android:id="@+id/textCount" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="15dp"
+              android:text="10" android:layout_gravity="center_horizontal" android:textSize="24sp"/>
+
+
+</LinearLayout>
+        </androidx.cardview.widget.CardView>
+    </RelativeLayout>
+
+    <LinearLayout
+            android:layout_width="360dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="30dp"
+            android:orientation="horizontal">
+
+        <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/ic_user_name" />
+
+        <TextView
+                android:id="@+id/textName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:gravity="center |center_horizontal"
+                android:paddingLeft="20dp"
+                android:paddingTop="20dp"
+                android:text="ALICE BOB CATPANE"
+                android:textSize="24sp" />
+    </LinearLayout>
+
+
+</LinearLayout>
