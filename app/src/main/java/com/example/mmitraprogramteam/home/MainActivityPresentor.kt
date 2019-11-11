@@ -30,6 +30,7 @@ class MainActivityPresentor : IMainActivityPresentor<IMainActivity>,IMainActivit
     IMainActivityInteractor.OnFormSync, ISettingsInteractor.OnFormDownloadFinished,ISettingsInteractor.onCheckUpdateFinished,
     ISettingsInteractor.OnRegistrationsDownloadFinished,ISettingsInteractor.OnVisitsDownloadFinished {
 
+
     private val FETCH_USER_DATA = 101
     private val FETCH_REGISTRATION_DATA = 102
     private val FETCH_FORMS_DATA = 103
@@ -278,12 +279,16 @@ var mRequest: RestoreDataRequest?=null
         if(b){
             mIMainActivityView?.showProgressBar(a?.getString(R.string.downloading_data)!!)
             var details = RequestFormModel()
-            details.setpassword(mPassword)
+            details.setusername("deepalishelke")
+            details.setpassword("deepalishelke")
+            details.setImei("865596031245799")
+            details.setShowdata("true")
+            /*details.setpassword(mPassword)
             details.setusername(mEmail)
             details.setImei(utility.getDeviceImeiNumber(a!!))
             details.setHash(mInteractor!!.getHash(HASH_ITEM_FORM))
-            mInteractor?.downloadForms(details, this)
-           // settingsInteractor?.downloadForms(details,this)
+            */
+             mInteractor?.downloadForms(details, this)
         }else{
             mIMainActivityView?.showSnackBar(a?.getString(R.string.no_internet_connection)!!)
         }
@@ -385,5 +390,7 @@ var mRequest: RestoreDataRequest?=null
             e.printStackTrace()
         }
     }
-
+    override fun chnageLanguage(context: Context, language: String) {
+        mInteractor?.changeLocale(context,language)
+    }
 }

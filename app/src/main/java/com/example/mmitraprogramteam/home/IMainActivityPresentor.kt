@@ -1,5 +1,6 @@
 package com.example.mmitraprogramteam.home
 
+import android.content.Context
 import android.database.Cursor
 import com.example.mmitraprogramteam.utility.IBasePresenter
 import java.util.ArrayList
@@ -39,4 +40,5 @@ interface IMainActivityPresentor<V> : IBasePresenter<V> {
     fun restoreRegistrations(pageNumber: Int)
     fun resetDataMemberValues()
     fun restoreVisits(pageNumber: Int)
+    fun chnageLanguage(context: Context, language: String)
 }

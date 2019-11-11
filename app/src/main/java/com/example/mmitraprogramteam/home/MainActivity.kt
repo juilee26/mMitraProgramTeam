@@ -35,46 +35,55 @@ import kotlinx.android.synthetic.main.activity_main.btnWomen
 import kotlinx.android.synthetic.main.activity_main.indicator
 import kotlinx.android.synthetic.main.activity_main.viewPager
 import kotlinx.android.synthetic.main.activity_main_buttons.*
+import kotlinx.android.synthetic.main.progress_overlay.*
 import java.util.*
 
-class MainActivity : AppCompatActivity(), IMainActivity,NavigationView.OnNavigationItemSelectedListener,View.OnClickListener,View.OnTouchListener{
+class MainActivity : AppCompatActivity(), IMainActivity,NavigationView.OnNavigationItemSelectedListener,View.OnClickListener,View.OnTouchListener {
 
 
-
-    var image_Array : IntArray = intArrayOf(R.drawable.slide01,R.drawable.slide02,R.drawable.slide03)
+    var image_Array: IntArray =
+        intArrayOf(R.drawable.slide01, R.drawable.slide02, R.drawable.slide03)
     //internal lateinit var viewPager : ViewPager
-    var mPresenter: MainActivityPresentor?=null
-    var utility : Utility = Utility()
+    var mPresenter: MainActivityPresentor? = null
+    var utility: Utility = Utility()
     var mSyncDrawable: LayerDrawable? = null
     var mProgressDialog: AlertDialog? = null
-    var settingsPresentor : SettingsPresentor?=null
+    var settingsPresentor: SettingsPresentor? = null
+    var uti = Utility()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_homeactivity)
-        val toolbar : Toolbar = findViewById(R.id.toolbar)
+        val toolbar: Toolbar = findViewById(R.id.toolbar)
         toolbar.setTitle(R.string.home)
         toolbar.setTitleTextColor(Color.WHITE)
         toolbar.setNavigationIcon(R.drawable.ic_navigation_icon)
         setSupportActionBar(toolbar)
-        val toggle = ActionBarDrawerToggle(            this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
+        val toggle = ActionBarDrawerToggle(
+            this,
+            drawer_layout,
+            toolbar,
+            R.string.navigation_drawer_open,
+            R.string.navigation_drawer_close
+        )
         drawer_layout.addDrawerListener(toggle)
         toggle.syncState()
         /*mPresenter?.getLoginDetail(userDetails)
         val name = userDetails.get(0)     */
         nav_view.setNavigationItemSelectedListener(this)
-        var navigationView : NavigationView = findViewById(R.id.nav_view)
+        var navigationView: NavigationView = findViewById(R.id.nav_view)
         navigationView?.setNavigationItemSelectedListener(this)
 
-        var menu : Menu =navigationView.menu
-        var version : MenuItem = menu.findItem(R.id.version)
+        var menu: Menu = navigationView.menu
+        var version: MenuItem = menu.findItem(R.id.version)
         version.title = utility.getAppVersionName(this)
-        var header : View = navigationView!!.getHeaderView(0)
-        var textUserName : TextView = header.findViewById(R.id.navUserName)
-        textUserName.text="USER"
-        var drawerLayout : DrawerLayout = findViewById(R.id.drawer_layout)
-        var mDrawerToggle = ActionBarDrawerToggle(this,drawerLayout,R.string.app_name,R.string.app_name)
+        var header: View = navigationView!!.getHeaderView(0)
+        var textUserName: TextView = header.findViewById(R.id.navUserName)
+        textUserName.text = "USER"
+        var drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
+        var mDrawerToggle =
+            ActionBarDrawerToggle(this, drawerLayout, R.string.app_name, R.string.app_name)
         mDrawerToggle.getDrawerArrowDrawable().setColor(Color.WHITE)
         drawerLayout.addDrawerListener(mDrawerToggle)
         mDrawerToggle.syncState()
@@ -96,7 +105,8 @@ class MainActivity : AppCompatActivity(), IMainActivity,NavigationView.OnNavigat
     } //end of onCreate
 
     override fun getContext(): Context {
-        return this    }
+        return this
+    }
 
     override fun onClick(v: View?) {
         when (v?.getId()) {
@@ -104,25 +114,37 @@ class MainActivity : AppCompatActivity(), IMainActivity,NavigationView.OnNavigat
 
             R.id.btnWomen -> startActivity(Intent(this, CompleteFormActivity::class.java))
 
-            R.id.btnReports -> Toast.makeText(applicationContext,"Reports",Toast.LENGTH_SHORT).show()
+            R.id.btnReports -> Toast.makeText(
+                applicationContext,
+                "Reports",
+                Toast.LENGTH_SHORT
+            ).show()
 
             R.id.btnUserProfile -> startActivity(Intent(this, UserProfileActivity::class.java))
-            R.id.btnLanguage -> Toast.makeText(applicationContext,"Language",Toast.LENGTH_SHORT).show()
-            R.id.btnUpdateForms -> Toast.makeText(applicationContext,"Update Forms",Toast.LENGTH_SHORT).show()
-        }    }
+            R.id.btnLanguage -> Toast.makeText(
+                applicationContext,
+                "Languages",
+                Toast.LENGTH_SHORT
+            ).show()
+            R.id.btnUpdateForms -> {
+                mPresenter?.downloadForms()
+                // Toast.makeText(applicationContext,"Update Forms",Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
 
     override fun onTouch(v: View?, event: MotionEvent?): Boolean {
-        when (event?.action){
-            MotionEventCompat.ACTION_POINTER_DOWN ->{
+        when (event?.action) {
+            MotionEventCompat.ACTION_POINTER_DOWN -> {
                 v?.background?.setColorFilter(0x77000000, PorterDuff.Mode.SRC_ATOP)
-            v?.invalidate()
+                v?.invalidate()
             }
-            MotionEventCompat.ACTION_POINTER_UP ->{
+            MotionEventCompat.ACTION_POINTER_UP -> {
                 v?.background?.clearColorFilter()
                 v?.invalidate()
             }
         }
-return true
+        return true
 
     }
 
@@ -137,11 +159,11 @@ return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if(item!=null){
-        when (item.itemId) {
-            R.id.action_settings -> startActivity(Intent(Intent(this@MainActivity, Settings::class.java)))
-           // R.id.action_sync -> mPresenter?.fetchRegistrationData()
-        }
+        if (item != null) {
+            when (item.itemId) {
+                //R.id.action_settings -> startActivity(Intent(Intent(this@MainActivity, Settings::class.java)))
+                //R.id.action_sync -> mPresenter?.fetchRegistrationData()
+            }
         }
         return super.onOptionsItemSelected(item)
     }
@@ -149,16 +171,17 @@ return true
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.nav_registration -> {
-                startActivity(Intent(this, EnrollmentQuestions::class.java))
+                startActivity(Intent(this, OTPActivity::class.java))
             }
             R.id.nav_complete -> {
-          //      startActivity(Intent(this, CompleteFormActivity::class.java))
+                startActivity(Intent(this, CompleteFormActivity::class.java))
             }
             R.id.nav_updateForms -> {
                 mPresenter?.downloadForms()
             }
             R.id.nav_restoreData -> {
-                val builder = AlertDialog.Builder(getContext())
+                Toast.makeText(applicationContext, "In progress", Toast.LENGTH_SHORT).show()
+                /* val builder = AlertDialog.Builder(getContext())
                 builder.setTitle(R.string.restore_data)
                     // builder.setTitle("NOTICE")
                     .setIcon(android.R.drawable.ic_dialog_alert)
@@ -173,11 +196,12 @@ return true
                         R.string.cancel
                     ) { dialog, which -> dialog.cancel() }
                     .show()
-
+*/
             }
 
             R.id.nav_checkUpdate -> {
-                mPresenter?.checkUpdate()
+                Toast.makeText(applicationContext, "In progress", Toast.LENGTH_SHORT)
+                    .show() //  mPresenter?.checkUpdate()
             }
 
             R.id.nav_logout -> {
@@ -198,19 +222,22 @@ return true
         }
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         drawerLayout.closeDrawer(GravityCompat.START)
-        return true    }
+        return true
+    }
 
     override fun showSnackBar(message: String) {
         val snackbar = Snackbar
             .make(findViewById(android.R.id.content), message, Snackbar.LENGTH_SHORT)
 
-        snackbar.show()    }
+        snackbar.show()
+    }
 
     override fun setUnsentFormsCount(count: Int) {
-        if (mSyncDrawable != null) utility.setBadgeCount(this, mSyncDrawable!!, count)    }
+        if (mSyncDrawable != null) utility.setBadgeCount(this, mSyncDrawable!!, count)
+    }
 
     override fun showProgressBar(label: String) {
-        var inflater = this.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        /* var inflater = this.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         var dialogView = inflater.inflate(R.layout.progress_dialog_layout, null)
         var textView = dialogView.findViewById<TextView>(R.id.textView_label)
         textView.text = label
@@ -218,10 +245,13 @@ return true
         mAlertDialogBuilder.setView(dialogView)
         mAlertDialogBuilder.setCancelable(false)
         mProgressDialog = mAlertDialogBuilder.create()
-        mProgressDialog?.show()    }
+        mProgressDialog?.show()   */
+        uti.animateView(progress_overlay, View.VISIBLE, 0.3f, 200)
+    }
 
-    override fun hideProgressBar() {
-        if (mProgressDialog != null) mProgressDialog?.dismiss()    }
+    override fun hideProgressBar()   {
+        uti.animateView(progress_overlay,View.GONE,0.4f,200)
+}
 
     override fun showFormUpdateErrorDialog() {
         val builder = AlertDialog.Builder(getContext())

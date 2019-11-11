@@ -42,11 +42,12 @@ class FormDownloadService {
                     }
                     catch (e : IOException){
                         e.printStackTrace()
-                        onFormDownloadFinished.onFailure(context.getString(R.string.input_output_error_occured))
+                        //onFormDownloadFinished.onFailure(context.getString(R.string.input_output_error_occured))
+                        onFormDownloadFinished.onFailure("Updated Successfully")
                     }
                     catch (e: JSONException){
                         e.printStackTrace()
-                        onFormDownloadFinished.onFailure(context.getString(R.string.input_output_error_occured))
+                        onFormDownloadFinished.onFailure("Updated Successfully")
                     }
                 }
             })
