@@ -29,8 +29,8 @@ class LoginInteractor : ILoginInteractor
             //val jsonObjectUser = jsonObject.getJSONObject("data")
 
             val values = ContentValues()
-
-            //values.put(DatabaseContract.LoginTable.COLUMN_USER_ID, jsonObjectUser.optString("id"))
+var id= 1
+            values.put(DatabaseContract.LoginTable.COLUMN_USER_ID, id)
            // values.put(DatabaseContract.LoginTable.COLUMN_NAME, jsonObjectUser.optString("name"))
             values.put(DatabaseContract.LoginTable.COLUMN_USERNAME, username)
             values.put(DatabaseContract.LoginTable.COLUMN_PASSWORD, password)

@@ -119,7 +119,7 @@ import static com.example.mmitraprogramteam.utility.Keywords.VILLAGE_NAME;
 import static com.example.mmitraprogramteam.utility.Keywords.WOMAN_AGE;
 import static com.example.mmitraprogramteam.utility.Keywords.WOMAN_DOB;
 import static com.example.mmitraprogramteam.utility.Keywords.WOMAN_MOB_NO;
-import static com.example.mmitraprogramteam.utility.Keywords.WOMAN_NAME;
+import static com.example.mmitraprogramteam.utility.Keywords.NAME;
 
 /**
  * This class is used to display questions of registration forms dynamically from the localDB.
@@ -663,7 +663,7 @@ public class EnrollmentQuestions extends AppCompatActivity {
                         public void onClick(DialogInterface dialog, int which) {
                             //finish();
 
-                            uniqueId = questionInteractor.saveRegistrationDetails(womendetails.get(WOMAN_NAME), womendetails.get(WOMAN_MOB_NO)
+                            uniqueId = questionInteractor.saveRegistrationDetails(womendetails.get(NAME), womendetails.get(WOMAN_MOB_NO)
                                     , womendetails.get(LMP_DATE_KEYWORD), womendetails.get(ADDRESS), womendetails.get(WOMAN_AGE)
                                     , womendetails.get(EDUCATION), womendetails.get(MARITAL_STATUS), photo, 1, womendetails.get(WOMAN_DOB));
 
@@ -678,7 +678,7 @@ public class EnrollmentQuestions extends AppCompatActivity {
 
                             Toast.makeText(getApplicationContext(), EnrollmentQuestions.this.getString(R.string.Toast_msg_for_formsavesuccessfully), Toast.LENGTH_LONG).show();
 
-                            Intent intent = new Intent(EnrollmentQuestions.this, timepass_activity.class);
+                            Intent intent = new Intent(EnrollmentQuestions.this, MainActivity.class);
                             intent.putExtra(UNIQUE_ID, uniqueId);
                             intent.putExtra(FORM_ID, "2");
                             startActivity(intent);

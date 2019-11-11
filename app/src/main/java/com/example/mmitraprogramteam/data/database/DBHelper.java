@@ -216,13 +216,14 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public Cursor getcompleteFormListList() {
         String form_id="";
-        Cursor cursor=utility.getDatabase().rawQuery("select max(form_id) as form_id from form_details",null);
+        /*Cursor cursor=utility.getDatabase().rawQuery("select max(form_id) as form_id from form_details",null);
         if (cursor != null && cursor.moveToFirst()) {
             form_id= cursor.getString(cursor.getColumnIndex(FormDetailsTable.COLUMN_FORM_ID));
         }
         if(form_id == null) form_id ="8";
         int formId= Integer.valueOf(form_id);
-        return utility.getDatabase().rawQuery("SELECT name,unique_id from registration WHERE unique_id IN (SELECT unique_id FROM filled_forms_status WHERE form_completion_status = 1 and form_id = "+ formId +")", null);
+        */
+        return utility.getDatabase().rawQuery("SELECT name,unique_id from registration ", null);
     }
 
     /**

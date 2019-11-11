@@ -10,13 +10,13 @@ public interface Keywords {
     String WOMAN_NAME = "woman_name";
   //  String WOMAN_MNAME = "middle_name";
     String WOMAN_DOB = "women_dob";
-    String WOMAN_AGE = "woman_age";
-    String ADDRESS = "woman_address";
+    String WOMAN_AGE = "age";
+    String ADDRESS = "address";
     String LMP_DATE_KEYWORD = "lmp_date";
     String EDD = "edd";
     String WOMAN_MOB_NO = "phone_no";
     String WOMAN_ALTERNATE_NO = "women_alternate_mob_no";
-    String EDUCATION = "women_education";
+    String EDUCATION = "education";
     String MARITAL_STATUS = "marital_status";
     String HOUSE_TYPE = "woman_house_type";
     String MOTHER_CLOSE_REASON = "close_reason";

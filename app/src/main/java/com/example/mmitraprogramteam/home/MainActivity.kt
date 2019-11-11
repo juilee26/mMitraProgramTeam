@@ -90,7 +90,8 @@ class MainActivity : AppCompatActivity(), IMainActivity,NavigationView.OnNavigat
         btnReports.setOnClickListener(this)
         btnLanguage.setOnClickListener(this)
         btnUpdateForms.setOnClickListener(this)
-
+        mPresenter = MainActivityPresentor()
+        mPresenter?.attachView(this)
 
     } //end of onCreate
 
