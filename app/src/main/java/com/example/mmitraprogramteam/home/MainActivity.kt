@@ -5,6 +5,7 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.PorterDuff
+import android.graphics.Rect
 import android.graphics.drawable.LayerDrawable
 import android.os.Bundle
 import android.view.*
@@ -14,6 +15,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.GravityCompat
 import androidx.core.view.MotionEventCompat
 import androidx.drawerlayout.widget.DrawerLayout
@@ -26,15 +28,13 @@ import com.example.mmitraprogramteam.settingactivity.SettingsActivity
 import com.example.mmitraprogramteam.settingactivity.SettingsPresentor
 import com.example.mmitraprogramteam.userprofile.UserProfileActivity
 import com.example.mmitraprogramteam.utility.Utility
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_homeactivity.*
-import kotlinx.android.synthetic.main.activity_main.btnReg
-import kotlinx.android.synthetic.main.activity_main.btnReports
-import kotlinx.android.synthetic.main.activity_main.btnWomen
-import kotlinx.android.synthetic.main.activity_main.indicator
-import kotlinx.android.synthetic.main.activity_main.viewPager
 import kotlinx.android.synthetic.main.activity_main_buttons.*
+import kotlinx.android.synthetic.main.activity_main_new_new.*
+import kotlinx.android.synthetic.main.layout_bottom_sheet.*
 import java.util.*
 
 class MainActivity : AppCompatActivity(), IMainActivity,NavigationView.OnNavigationItemSelectedListener,View.OnClickListener,View.OnTouchListener{
@@ -48,7 +48,9 @@ class MainActivity : AppCompatActivity(), IMainActivity,NavigationView.OnNavigat
     var mSyncDrawable: LayerDrawable? = null
     var mProgressDialog: AlertDialog? = null
     var settingsPresentor : SettingsPresentor?=null
-
+    var userDetails = ArrayList<String>()
+    var bottomSheet: ConstraintLayout? = null
+    var  sheetBehavior = BottomSheetBehavior<View>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -75,12 +77,12 @@ class MainActivity : AppCompatActivity(), IMainActivity,NavigationView.OnNavigat
         textUserName.text="USER"
         var drawerLayout : DrawerLayout = findViewById(R.id.drawer_layout)
         var mDrawerToggle = ActionBarDrawerToggle(this,drawerLayout,R.string.app_name,R.string.app_name)
-        mDrawerToggle.getDrawerArrowDrawable().setColor(Color.WHITE)
+        mDrawerToggle.drawerArrowDrawable.color = Color.WHITE
         drawerLayout.addDrawerListener(mDrawerToggle)
         mDrawerToggle.syncState()
 
 
-        viewPager.setAdapter(SliderAdapter(this, image_Array))
+        viewPager.setAdapter(SliderAdapter(this))
         indicator.setupWithViewPager(viewPager, true)
 
         val timer = Timer()
@@ -93,7 +95,53 @@ class MainActivity : AppCompatActivity(), IMainActivity,NavigationView.OnNavigat
         mPresenter = MainActivityPresentor()
         mPresenter?.attachView(this)
 
+        bottomSheet =findViewById(R.id.bottomSheet)
+        sheetBehavior= BottomSheetBehavior.from(bottomSheet)
+
+        sheetBehavior.setBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback(){
+            override fun onSlide(p0: View, p1: Float) {
+                toggleImageView.rotation = p1 * 180
+            }
+
+            override fun onStateChanged(bottomSheet: View, state: Int) {
+            when(state){
+                BottomSheetBehavior.STATE_HIDDEN->{}
+                BottomSheetBehavior.STATE_EXPANDED->{}
+                BottomSheetBehavior.STATE_COLLAPSED->{}
+            }
+            }
+        })
+
+        toggleImageView.setOnClickListener(){
+            if(sheetBehavior.state == BottomSheetBehavior.STATE_EXPANDED){
+                collapse()
+            }
+            else
+                expand()
+        }
+
     } //end of onCreate
+
+    fun collapse(){
+        sheetBehavior.state= BottomSheetBehavior.STATE_COLLAPSED
+    }
+fun expand(){
+    sheetBehavior.state= BottomSheetBehavior.STATE_EXPANDED
+
+}
+
+    override fun dispatchTouchEvent(event: MotionEvent): Boolean {
+        if(event.action== MotionEvent.ACTION_DOWN) {
+            if (sheetBehavior.state == BottomSheetBehavior.STATE_EXPANDED) {
+                var outRect = Rect()
+                bottomSheet?.getGlobalVisibleRect(outRect)
+                if (!outRect.contains(event.rawX.toInt(), event.rawY.toInt())) {
+                    collapse()
+                }
+            }
+        }
+        return super.dispatchTouchEvent(event)
+    }
 
     override fun getContext(): Context {
         return this    }
@@ -248,7 +296,7 @@ return true
                 settingsPresentor!!.downloadApk(url)
             })
             .setNegativeButton(getString(R.string.cancel),
-                DialogInterface.OnClickListener { dialog, which ->  })
+                { dialog, which ->  })
             .show()    }
 
 
@@ -266,13 +314,13 @@ return true
     private inner class SliderTimer : TimerTask() {
 
         override fun run() {
-            this@MainActivity.runOnUiThread(Runnable {
-                if (viewPager.getCurrentItem() < image_Array.size- 1) {
-                    viewPager.setCurrentItem(viewPager.getCurrentItem() + 1)
+            this@MainActivity.runOnUiThread {
+                if (viewPager.currentItem < image_Array.size- 1) {
+                    viewPager.currentItem = viewPager.currentItem + 1
                 } else {
-                    viewPager.setCurrentItem(0)
+                    viewPager.currentItem = 0
                 }
-            })
+            }
         }
     }
     }
